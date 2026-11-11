@@ -136,6 +136,13 @@ class MenusV04(unittest.TestCase):
         ui=self.ui();ui.choose.side_effect=['all',None]
         app.help_menu(ui)
         text=(Path(app.ENTRY).parent/'README.md').read_text()
-        self.assertEqual(ui.view.call_args.args[1],text)
+        shown=ui.view.call_args.args[1]
+        self.assertNotIn('img.shields.io',shown)
+        in_badges=False
+        for line in text.splitlines():
+            if line=='<!-- aegis:badges -->':in_badges=True;continue
+            if line=='<!-- /aegis:badges -->':in_badges=False;continue
+            if not in_badges and line.strip():self.assertIn(line,shown)
+
 
 if __name__=='__main__':unittest.main()

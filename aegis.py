@@ -613,6 +613,8 @@ def help_menu(ui):
         path=ENTRY.parent/name
         try:text=path.read_text()
         except OSError:ui.error('README is unavailable. Keep the complete source folder or rerun the standalone installer.');return
+        # Web badges are omitted in terminal Help; all guide sections remain available.
+        text=re.sub(r'(?ms)^<!-- aegis:badges -->\n.*?^<!-- /aegis:badges -->\n?', '', text)
         sections=re.split(r'(?m)^## ',text)
         entries=[('all',ui.t('Complete user guide','Πλήρης οδηγός χρήσης'),ui.t('Full documentation. Page Up/Down to scroll; q to return.','Πλήρης τεκμηρίωση. Page Up/Down για κύλιση, q για επιστροφή.'))]
         entries += [(str(i),section.splitlines()[0],section.splitlines()[0]) for i,section in enumerate(sections[1:],1)]
