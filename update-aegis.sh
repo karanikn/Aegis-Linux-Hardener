@@ -35,7 +35,7 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 def fetch(url,limit):
     if url not in (INSTALL_URL,MANIFEST_URL):raise ValueError('Unapproved update URL')
     opener=urllib.request.build_opener(NoRedirect())
-    request=urllib.request.Request(url,headers={'User-Agent':'Aegis-Updater/0.7.0','Cache-Control':'no-cache'})
+    request=urllib.request.Request(url,headers={'User-Agent':'Aegis-Updater/0.8.0','Cache-Control':'no-cache'})
     with opener.open(request,timeout=30) as response:
         if response.geturl()!=url:raise ValueError('Unexpected update destination')
         data=response.read(limit+1)

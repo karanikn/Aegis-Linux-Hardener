@@ -614,11 +614,11 @@ def help_menu(ui):
         try:text=path.read_text()
         except OSError:ui.error('README is unavailable. Keep the complete source folder or rerun the standalone installer.');return
         sections=re.split(r'(?m)^## ',text)
-        entries=[('all','Complete README / Πλήρες README','Every instruction from '+name+'; scroll with Page Up/Down, q to return.')]
+        entries=[('all',ui.t('Complete user guide','Πλήρης οδηγός χρήσης'),ui.t('Full documentation. Page Up/Down to scroll; q to return.','Πλήρης τεκμηρίωση. Page Up/Down για κύλιση, q για επιστροφή.'))]
         entries += [(str(i),section.splitlines()[0],section.splitlines()[0]) for i,section in enumerate(sections[1:],1)]
         choice=ui.choose('Help',entries)
         if choice is None:return
-        if choice=='all':ui.view('Help — '+name,text)
+        if choice=='all':ui.view(ui.t('Help — User guide','Βοήθεια — Οδηγός χρήσης'),text)
         elif choice.isdigit() and 0<int(choice)<len(sections):ui.view(sections[int(choice)].splitlines()[0],'## '+sections[int(choice)])
 
 

@@ -172,7 +172,7 @@ def app_information(key,version=None,availability=None):
 
 def fetch(url, maximum=512 * 1024 * 1024):
     if not url.startswith('https://'): raise ValueError('HTTPS required')
-    request = urllib.request.Request(url, headers={'User-Agent': 'Aegis-Linux-Hardener/0.6.0', 'Accept': 'application/json, */*'})
+    request = urllib.request.Request(url, headers={'User-Agent': 'Aegis-Linux-Hardener/0.8.0', 'Accept': 'application/json, */*'})
     with urllib.request.urlopen(request, timeout=45) as response:
         if not response.url.startswith('https://'): raise ValueError('Insecure redirect refused')
         data = response.read(maximum + 1)

@@ -1,6 +1,6 @@
-# Lynis findings review — v0.2.0
+# Lynis control coverage — Aegis 0.8.0
 
-The supplied Lynis 3.0.8 scan reported hardening index 68, 260 tests, one package-vulnerability warning and 53 suggestions. Repeated suggestions reduce to 39 distinct control IDs. This table documents coverage, not a claim that findings are fixed.
+This reference maps supported Lynis control IDs to available actions, inspections or manual review. Coverage does not imply that a finding is fixed or that a system meets a compliance standard.
 
 Select changes separately in Security & Hardening → Lynis. Inspect the latest local report to see current findings.
 
@@ -46,7 +46,7 @@ Select changes separately in Security & Hardening → Lynis. Inspect the latest 
 | HRDN-7230 | Malware detection | clamav | Optional ClamAV/rkhunter/chkrootkit installation; checks do not prove a host is clean. |
 | LYNIS | Lynis version | inspect | Review distribution/vendor versions without automatically replacing trusted repositories. |
 
-## Decisions
+## Operational limits
 
 - Do not repartition, change GRUB authentication, disable needed forwarding or set irreversible kernel locks automatically.
 - Existing jail.d overrides are retained; CISOfy marks historical DEB-0880 invalid.
