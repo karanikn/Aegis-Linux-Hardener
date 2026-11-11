@@ -61,7 +61,7 @@ test
 
 
 Managed file changes:
-/tmp/tmp6vcp6uz3/config
+/tmp/tmpp6jlzpw_/config
     new
 
 Commands:
@@ -69,8 +69,8 @@ Commands:
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261111-130725-d84b8aed
-Applied. Managed-file backup: /tmp/tmp6vcp6uz3/state/backups/20261111-130725-d84b8aed
+Backup/change ID: 20261111-132014-d442354b
+Applied. Managed-file backup: /tmp/tmpp6jlzpw_/state/backups/20261111-132014-d442354b
 
 ────────────────────────────────────────────────────────────────────
 test
@@ -79,7 +79,7 @@ test
 
 
 Managed file changes:
-/tmp/tmp3_ahemx_/config
+/tmp/tmpajrk137p/config
     new
 
 Commands:
@@ -110,7 +110,7 @@ test
 
 
 Managed file changes:
-/tmp/tmpc9w7cge7/config
+/tmp/tmpotrcxnc7/config
     new
 
 Commands:
@@ -119,7 +119,7 @@ Commands:
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261111-130725-480e58d0
+Backup/change ID: 20261111-132014-fa8090ed
 
 ────────────────────────────────────────────────────────────────────
 critical
@@ -145,7 +145,7 @@ new
 
 
 Managed file changes:
-/tmp/tmpxq97ns8n/new-file
+/tmp/tmptbfs9pbd/new-file
     content
 
 Commands:
@@ -153,8 +153,8 @@ Commands:
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261111-130725-8fbd8baf
-Applied. Managed-file backup: /tmp/tmpxq97ns8n/state/backups/20261111-130725-8fbd8baf
+Backup/change ID: 20261111-132014-7a3520ec
+Applied. Managed-file backup: /tmp/tmptbfs9pbd/state/backups/20261111-132014-7a3520ec
 
 Verify access works in this NEW session. Keep the change? [Y/n · Enter=yes]
 Default: y
@@ -168,7 +168,7 @@ test
 
 
 Managed file changes:
-/tmp/tmpnw3chalz/config
+/tmp/tmpk410hy4f/config
     new
 
 Commands:
@@ -184,7 +184,7 @@ package
 
 
 Managed file changes:
-/tmp/tmpnct0o2n5/config (configured after package installation, before service start)
+/tmp/tmp7o1ouizc/config (configured after package installation, before service start)
 
 Commands:
   fake-install
@@ -193,8 +193,8 @@ Commands:
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261111-130725-796c42dd
-Applied. Managed-file backup: /tmp/tmpnct0o2n5/state/backups/20261111-130725-796c42dd
+Backup/change ID: 20261111-132014-eae8347b
+Applied. Managed-file backup: /tmp/tmp7o1ouizc/state/backups/20261111-132014-eae8347b
 
 ────────────────────────────────────────────────────────────────────
 critical
@@ -203,7 +203,7 @@ critical
 
 
 Managed file changes:
-/tmp/tmpgvlhi8vw/config
+/tmp/tmpga4_6ls7/config
     new
 
 Commands:
@@ -214,11 +214,11 @@ Open a SECOND SSH connection and run the displayed confirm command.
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261111-130725-d8270e6f
-Confirm in a NEW connection: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpgvlhi8vw/state/backups/20261111-130725-d8270e6f/runner/aegis.py confirm 20261111-130725-d8270e6f
+Backup/change ID: 20261111-132014-b4ca3228
+Confirm in a NEW connection: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpga4_6ls7/state/backups/20261111-132014-b4ca3228/runner/aegis.py confirm 20261111-132014-b4ca3228
 
 Open a NEW SSH connection (use the NEW IP after a network change), then run:
-sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpgvlhi8vw/state/backups/20261111-130725-d8270e6f/runner/aegis.py confirm 20261111-130725-d8270e6f
+sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpga4_6ls7/state/backups/20261111-132014-b4ca3228/runner/aegis.py confirm 20261111-132014-b4ca3228
 If not confirmed, the managed files/rules will be restored after 180 seconds.
 
 Aegis Linux Hardener v0.7.0
@@ -335,7 +335,7 @@ Topic/thread ID (0=χωρίς topic)
 ✅ Εγκαταστάθηκε v1.2.0
 Έλεγχος: sudo linux-telegram-alerts status
 Ρυθμίσεις: sudo linux-telegram-alerts configure
-Backup: /tmp/tmpc7pfm0pa/state/backup-20261111-130725-275874
+Backup: /tmp/tmpuy7wyq84/state/backup-20261111-132014-701177
 
 ────────────────────────────────────────────────────────────────
 Language / Γλώσσα: [1] English  [2] Ελληνικά
@@ -395,8 +395,8 @@ Aegis Linux Hardener 0.7.0
 System info, security hardening and Telegram alerts in one tool.
 Installs program files in /opt/aegis-linux-hardener and the /usr/local/bin/aegis launcher.
 No firewall, SSH, optional packages or Telegram configuration is changed by this bootstrap.
-Program undo ID: 20261111-130725-58235286
-Recovery command: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpj3mtyevc/state/backups/20261111-130725-58235286/runner/aegis.py rollback 20261111-130725-58235286
+Program undo ID: 20261111-132014-5f610437
+Recovery command: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmp8k7d71b_/state/backups/20261111-132014-5f610437/runner/aegis.py rollback 20261111-132014-5f610437
 Installed. Start with: aegis
 Read-only CLI: aegis info --json | aegis monitor --sort cpu | aegis audit
 Portable mode: no /opt installation or aegis launcher is created.
@@ -564,7 +564,7 @@ test_redirect_and_unapproved_download_are_rejected (test_v07.Updates.test_redire
 test_verified_installer_check_then_install_and_temp_cleanup (test_v07.Updates.test_verified_installer_check_then_install_and_temp_cleanup) ... ok
 
 ----------------------------------------------------------------------
-Ran 226 tests in 0.213s
+Ran 226 tests in 0.197s
 
 OK
 
@@ -572,15 +572,15 @@ metadata
 
 
 Managed file changes:
-/tmp/tmp1jjzeb7b/home permissions → 0o750
+/tmp/tmpwx8rb_v2/home permissions → 0o750
 
 Commands:
 
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261111-130725-2bc46de6
-Applied. Managed-file backup: /tmp/tmp1jjzeb7b/state/backups/20261111-130725-2bc46de6
+Backup/change ID: 20261111-132014-31397772
+Applied. Managed-file backup: /tmp/tmpwx8rb_v2/state/backups/20261111-132014-31397772
 
 ────────────────────────────────────────────────────────────────────
 network
@@ -589,7 +589,7 @@ network
 
 
 Managed file changes:
-/tmp/tmpoic61v6r/network.conf
+/tmp/tmpnozk83kt/network.conf
     new
 
 Commands:
@@ -601,9 +601,9 @@ Open a SECOND SSH connection and run the displayed confirm command.
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261111-130725-55a24c12
-Confirm in a NEW connection: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpoic61v6r/state/backups/20261111-130725-55a24c12/runner/aegis.py confirm 20261111-130725-55a24c12
+Backup/change ID: 20261111-132014-ae5f3764
+Confirm in a NEW connection: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpnozk83kt/state/backups/20261111-132014-ae5f3764/runner/aegis.py confirm 20261111-132014-ae5f3764
 
 Open a NEW SSH connection (use the NEW IP after a network change), then run:
-sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpoic61v6r/state/backups/20261111-130725-55a24c12/runner/aegis.py confirm 20261111-130725-55a24c12
+sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpnozk83kt/state/backups/20261111-132014-ae5f3764/runner/aegis.py confirm 20261111-132014-ae5f3764
 If not confirmed, the managed files/rules will be restored after 180 seconds.

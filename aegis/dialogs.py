@@ -11,6 +11,10 @@ def prompt(label,default=None,secret=False,choices=None):
     state={'text':'','cursor':0,'index':values.index(str(default)) if str(default) in values else 0,'chosen':False,'focus':0}
     def render(screen):
         screen.keypad(True)
+        # stdscr survives successive curses.wrapper calls. Reset the dashboard's
+        # 200 ms poll timeout: get_wch otherwise raises "no input" on idle.
+        # EL: Οι ερωτήσεις περιμένουν απεριόριστα την απάντηση του χρήστη.
+        screen.timeout(-1)
         if hasattr(curses,'set_escdelay'):curses.set_escdelay(35)
         normal,accent,selected,warning=UI(console.LANGUAGE,console.THEME).palette(curses,screen)
         while True:

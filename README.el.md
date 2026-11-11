@@ -2,13 +2,21 @@
 
 > System info, security hardening and Telegram alerts in one tool.
 
-**Έκδοση 0.7.0 — πρώτη έκδοση για έλεγχο, με κύρια χρήση σε servers και υποστήριξη desktops σε Debian-based Linux.**
+**Έκδοση 0.7.1 — πρώτη έκδοση για έλεγχο, με κύρια χρήση σε servers και υποστήριξη desktops σε Debian-based Linux.**
 
 [English documentation](README.md)
 
 ![Δείγμα μενού Aegis](docs/preview.png)
 
 Το δείγμα παράγεται από τον κώδικα σχεδίασης του μενού με ενδεικτικά στοιχεία μηχανήματος. Δεν παρουσιάζει εγκατάσταση σε παραγωγικό server.
+
+## Διόρθωση 0.7.1 — τα παράθυρα έκλειναν με «no input»
+
+Το live dashboard χρησιμοποιούσε χρονικό όριο εισόδου 200 ms. Το curses διατηρούσε αυτή τη ρύθμιση στο επόμενο παράθυρο, οπότε η αναμονή για πληκτρολόγηση έληγε και εμφανιζόταν «no input». Το πρόβλημα αναπαράχθηκε πριν τη διόρθωση. Πλέον κάθε οθόνη ορίζει τη δική της αναμονή: περιοδική στο live dashboard, απεριόριστη στα απλά μενού, στις προβολές και στις ερωτήσεις.
+
+Προστέθηκε πραγματικός έλεγχος PTY με μετάβαση από dashboard σε υπομενού, ερώτηση, προβολή και ακύρωση ερώτησης, με αναμονή 800 ms πριν από κάθε απάντηση. Πέρασαν και οι τέσσερις μεταβάσεις, οι προηγούμενοι εννέα έλεγχοι διαλόγων και οι 226 αυτοματοποιημένες δοκιμές.
+
+Εγκατάσταση διορθωμένης έκδοσης: `sudo bash ./install-aegis.sh --install`. Μέχρι την ενημέρωση, προσωρινή παράκαμψη: `sudo env AEGIS_DIALOGS=0 aegis`. Δεν απαιτείται επαναφορά ρυθμίσεων λειτουργικού.
 
 ## Νέα στην 0.7.0 — online update, SSH keys και παράθυρα ερωτήσεων
 
@@ -210,10 +218,10 @@ Debian/Ubuntu-based μηχάνημα, λογαριασμός SSH με sudo κα�
 
 ### 2. Κατέβασμα και μεταφορά από Windows
 
-Κατέβασε το `aegis-linux-hardener-v0.7.0.zip` στα Downloads. Άνοιξε **PowerShell στον υπολογιστή Windows**:
+Κατέβασε το `aegis-linux-hardener-v0.7.1.zip` στα Downloads. Άνοιξε **PowerShell στον υπολογιστή Windows**:
 
 ```powershell
-scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.7.0.zip" karanik@SERVER_IP:~/
+scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.7.1.zip" karanik@SERVER_IP:~/
 ```
 
 Το scp αντιγράφει το ZIP στο home του Linux χρήστη. Δεν κάνει εγκατάσταση. Αν χρησιμοποιείς άλλη θύρα SSH, βάλε `scp -P Η_ΘΥΡΑ ...` με κεφαλαίο P.
@@ -228,7 +236,7 @@ ssh karanik@SERVER_IP
 
 ```bash
 cd ~
-unzip -o aegis-linux-hardener-v0.7.0.zip
+unzip -o aegis-linux-hardener-v0.7.1.zip
 cd ~/aegis-linux-hardener
 sudo bash ./install-aegis.sh --install
 ```
@@ -359,14 +367,14 @@ App Installer → **htop** → **Install application** → διαβάζεις τ
 
 ```powershell
 # Αντικατάστησε το SERVER_IP με την IP του Linux server.
-scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.7.0.zip" karanik@SERVER_IP:~/
+scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.7.1.zip" karanik@SERVER_IP:~/
 ```
 
 **2. Από το SSH terminal του Linux:**
 
 ```bash
 cd ~
-unzip -o aegis-linux-hardener-v0.7.0.zip
+unzip -o aegis-linux-hardener-v0.7.1.zip
 cd ~/aegis-linux-hardener
 sudo bash ./install-aegis.sh --install
 ```

@@ -2,7 +2,7 @@
 
 > System info, security hardening and Telegram alerts in one tool.
 
-**Version 0.7.0 — review release for Debian-based servers and desktops.**
+**Version 0.7.1 — review release for Debian-based servers and desktops.**
 
 Aegis is an SSH-friendly terminal toolkit combining system information, process monitoring, selective security changes, application installation, and **Linux Telegram Alerts**. Servers are the primary target; desktop utilities are available when their prerequisites exist.
 
@@ -11,6 +11,14 @@ Aegis is an SSH-friendly terminal toolkit combining system information, process 
 ![Aegis menu demo](docs/preview.png)
 
 *Preview rendered from the menu drawing code using demo host information. It is not a screenshot of changes applied to a production server.*
+
+## Fixed in 0.7.1 — dialogs closing with “no input”
+
+The live dashboard used a 200 ms curses input timeout. The curses standard screen retained that setting when a new dialog opened, so idle `get_wch()` raised “no input”. This was reproduced before the fix. Each screen now explicitly sets its own input mode: timed polling for the live dashboard, unlimited waiting for static menus, pagers and questions.
+
+A real PTY regression transitions from the live dashboard into a submenu, text question, pager and cancelled question, waiting 800 ms before input on each screen. All four remain open and respond correctly. The prior nine modal PTY checks and 226 automated tests also pass.
+
+Install the corrected ZIP with `sudo bash ./install-aegis.sh --install`. Until updated, the inline-question workaround is `sudo env AEGIS_DIALOGS=0 aegis`. No host settings need to be reset.
 
 ## New in 0.7.0 — online update, SSH key management and dialog boxes
 
@@ -206,10 +214,10 @@ Use a Debian/Ubuntu-based machine, an SSH account with sudo, and Python 3.9 or l
 
 ### 2. Download and copy the ZIP
 
-Download `aegis-linux-hardener-v0.7.0.zip` to Downloads on your workstation. On Windows, open **PowerShell on your workstation**:
+Download `aegis-linux-hardener-v0.7.1.zip` to Downloads on your workstation. On Windows, open **PowerShell on your workstation**:
 
 ```powershell
-scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.7.0.zip" karanik@SERVER_IP:~/
+scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.7.1.zip" karanik@SERVER_IP:~/
 ```
 
 This copies the ZIP to the Linux user's home. It does not install anything. If SSH uses a custom port, use `scp -P YOUR_PORT ...` (capital P).
@@ -224,7 +232,7 @@ Run the following **in the Linux terminal**, not Windows PowerShell:
 
 ```bash
 cd ~
-unzip -o aegis-linux-hardener-v0.7.0.zip
+unzip -o aegis-linux-hardener-v0.7.1.zip
 cd ~/aegis-linux-hardener
 sudo bash ./install-aegis.sh --install
 ```
@@ -384,18 +392,18 @@ Official Docker repository setup accepts known Debian base suites and Ubuntu sui
 
 ## Quick start — local ZIP
 
-1. Download and copy `aegis-linux-hardener-v0.7.0.zip` to the target machine. Example from Windows PowerShell:
+1. Download and copy `aegis-linux-hardener-v0.7.1.zip` to the target machine. Example from Windows PowerShell:
 
 ```powershell
 # Replace SERVER_IP with the target address.
-scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.7.0.zip" karanik@SERVER_IP:~/
+scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.7.1.zip" karanik@SERVER_IP:~/
 ```
 
 2. In the Linux SSH terminal:
 
 ```bash
 cd ~
-unzip -o aegis-linux-hardener-v0.7.0.zip
+unzip -o aegis-linux-hardener-v0.7.1.zip
 cd ~/aegis-linux-hardener
 sudo bash ./install-aegis.sh --install
 ```

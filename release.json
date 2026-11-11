@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": "0.7.0",
+  "version": "0.7.1",
   "installer_url": "https://karanik.gr/scripts/linux/aegis-linux-hardener/install-aegis.sh",
-  "sha256": "c4e88082a344b42e86b59d6051aa879d221e637d219ba4936e6024ffbd4cb361"
+  "sha256": "cae1e2bfa8f415642648bfc56b4f1d9fcb2fe0b190008316c1463ea042d1353d"
 }

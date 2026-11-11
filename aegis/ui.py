@@ -90,7 +90,7 @@ class UI:
                 normal, accent, selected, warning = self.palette(curses, screen)
                 pos = min(self.positions.get(title, 0), len(entries)-1)
                 panel_offset=0;panel_focus=False
-                if panels and hasattr(screen,'timeout'):screen.timeout(200)
+                if hasattr(screen,'timeout'):screen.timeout(200 if panels else -1)
                 while True:
                     screen.erase()
                     h, w = screen.getmaxyx()
@@ -190,6 +190,7 @@ class UI:
             import curses
             def render(screen):
                 curses.curs_set(0)
+                if hasattr(screen,'timeout'):screen.timeout(-1)
                 if hasattr(curses, 'set_escdelay'): curses.set_escdelay(35)
                 if hasattr(screen, 'keypad'): screen.keypad(True)
                 normal, accent, selected, warning = self.palette(curses, screen)

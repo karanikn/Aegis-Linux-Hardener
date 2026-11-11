@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.1 — 2026-11-11
+
+- Fix inherited curses input timeout: live dashboard polling no longer closes idle questions with "no input".
+- Explicit blocking input for dialogs, static menus and pagers.
+- Reproduced the original failure; added four delayed-input live-dashboard transitions in a real PTY.
+- Existing nine modal PTY checks and 226 automated tests also pass.
+
 ## 0.7.0 — 2026-11-11
 
 - Explicit website update action, fixed karanik.gr HTTPS URLs, bounded downloads, no redirects, version/checksum checks and program backup via installer.
