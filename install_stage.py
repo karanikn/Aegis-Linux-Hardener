@@ -39,7 +39,7 @@ def extract(data, destination):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Install Aegis Linux Hardener 0.7.1')
+    parser = argparse.ArgumentParser(description='Install Aegis Linux Hardener 0.8.0')
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument('--portable', action='store_true', help='Run the unpacked UI without installing /opt or a launcher')
     modes.add_argument('--install', action='store_true', help='Install/update Aegis explicitly')
@@ -90,7 +90,7 @@ def main():
         for manifest in Path('/var/lib/aegis-linux-hardener/backups').glob('*/manifest.json'):
             if json.loads(manifest.read_text()).get('status') in ('armed', 'applying', 'awaiting-activation', 'activating', 'awaiting-confirmation'):
                 raise RuntimeError('Confirm or restore the pending change before upgrading Aegis')
-        print('Aegis Linux Hardener 0.7.1\nSystem info, security hardening and Telegram alerts in one tool.')
+        print('Aegis Linux Hardener 0.8.0\nSystem info, security hardening and Telegram alerts in one tool.')
         print('Installs program files in /opt/aegis-linux-hardener and the /usr/local/bin/aegis launcher.')
         print('No firewall, SSH, optional packages or Telegram configuration is changed by this bootstrap.')
         if not console.confirm('Install/update Aegis on this machine?'):
@@ -117,7 +117,7 @@ def main():
         old_launcher = launcher.read_bytes() if launcher.exists() else None
         try:
             extract(data, staged)
-            (staged / '.aegis-managed').write_text('Aegis Linux Hardener 0.7.1\n')
+            (staged / '.aegis-managed').write_text('Aegis Linux Hardener 0.8.0\n')
             if target.exists():
                 old = Path(tempfile.mkdtemp(prefix='.aegis-old-', dir=target.parent))
                 old.rmdir()

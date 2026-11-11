@@ -93,7 +93,7 @@ class CatalogV06(unittest.TestCase):
     def test_all_apps_remains_available_beside_categories(self):
         ui=Mock();ui.choose.return_value=None
         app.apps_menu(ui);entries=ui.choose.call_args.args[1]
-        self.assertEqual(entries[0][0],'all');self.assertTrue(any(row[0]=='Docker/LXC/K8s' for row in entries))
+        self.assertEqual(entries[0][0],'search');self.assertEqual(entries[1][0],'all');self.assertTrue(any(row[0]=='Docker/LXC/K8s' for row in entries))
 
 class BuildV06(unittest.TestCase):
     def archive(self,entries):

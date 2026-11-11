@@ -1,6 +1,6 @@
-# Application catalog — v0.7.0
+# Application catalog — v0.8.0
 
-59 entries. uCareSystem is pinned first in All apps; entries inside categories are alphabetical. Availability is detected on the target OS. Installed names use the suffix `[Installed]`.
+56 default visible built-in entries. PNANA, psnet and watcher are excluded. Settings supports custom APT entries and hidden built-ins; Search filters the visible list live.
 
 | Application | Category | Purpose | Source |
 | --- | --- | --- | --- |
@@ -35,8 +35,8 @@
 | lm-sensors | System & hardware | Read Linux temperature, voltage and fan sensors. | [Official source](https://packages.debian.org/search?keywords=lm-sensors) |
 | Logwatch | Security & administration | Summaries of system/application logs. | [Official source](https://packages.debian.org/search?keywords=logwatch) |
 | Lynis | Security & administration | Security audit and hardening suggestions. | [Official source](https://cisofy.com/lynis/) |
-| Midnight Commander (mc) | File Managers | Dual-pane file manager with editor and archive browsing. | [Official source](https://packages.debian.org/search?keywords=mc) |
 | microNeo | Editors | Modern terminal editor derived from Micro. | [Official source](https://github.com/sollawen/microNeo) |
+| Midnight Commander (mc) | File Managers | Dual-pane file manager with editor and archive browsing. | [Official source](https://packages.debian.org/search?keywords=mc) |
 | ncdu | System & hardware | Explore disk space usage. | [Official source](https://dev.yorhel.nl/ncdu) |
 | netdiag | Networking | Distribution collection of network diagnostic tools. | [Official source](https://packages.debian.org/search?keywords=netdiag) |
 | NetHogs | Networking | Network bandwidth usage grouped by process. | [Official source](https://packages.debian.org/search?keywords=nethogs) |
@@ -46,8 +46,6 @@
 | Nmap | Networking | Network host, port and service discovery. | [Official source](https://packages.debian.org/search?keywords=nmap) |
 | nmon | Dashboards | CPU, memory, disk and network performance analysis. | [Official source](https://packages.debian.org/search?keywords=nmon) |
 | nmtui | Networking | Text interface for NetworkManager connection profiles. | [Official source](https://packages.debian.org/search?keywords=network-manager) |
-| PNANA | Editors | C++ terminal editor with FTXUI, themes and editing shortcuts. | [Official source](https://github.com/Cyxuan0311/PNANA) |
-| psnet | Networking | Windows PowerShell network monitor; not supported on Linux. | [Official source](https://github.com/psmux/psnet) |
 | pydf | Dashboards | Colorful filesystem capacity and usage report. | [Official source](https://packages.debian.org/search?keywords=pydf) |
 | rcconf | Security & administration | Legacy SysV service startup configuration. | [Official source](https://packages.debian.org/search?keywords=rcconf) |
 | rovr | File Managers | Stylish terminal file manager with previews and navigation. | [Official source](https://github.com/NSPC911/rovr) |
@@ -60,8 +58,7 @@
 | tmux | Productivity | Persistent terminal sessions, panes and windows. | [Official source](https://packages.debian.org/search?keywords=tmux) |
 | unrar-free | File Managers | Extract supported RAR archives using free software. | [Official source](https://packages.debian.org/search?keywords=unrar-free) |
 | vnStat | Dashboards | Persistent per-interface network traffic accounting. | [Official source](https://packages.debian.org/search?keywords=vnstat) |
-| watcher | Miscellaneous | Ambiguous project name: exact upstream identity required. | Exact identity needed |
 | Webmin | Web | Official repository. A new instance binds to localhost:10000. | [Official source](https://webmin.com/download/) |
 | WinBoat | Docker/LXC/K8s | Desktop Windows-app integration; KVM, Docker/Podman, FreeRDP 3 required. | [Official source](https://www.winboat.app/) |
 
-APT availability depends on enabled repositories and suite. Other methods are shown in-app: vendor, upstream binary, isolated source build, Guide only, Unavailable. No install action is offered for guide-only/unavailable entries.
+Custom entries use configured APT repositories only. Their executable, when configured, must be owned by the package in /usr/bin or /bin and is launched as the originating regular user. Removing a list entry never uninstalls a package.

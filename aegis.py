@@ -13,7 +13,7 @@ import shutil
 import subprocess
 import sys
 
-from aegis import VERSION, TITLE, TAGLINE, system, actions, security, catalog, console, networking, lynis, panels, defense, toolinstall, logs, launch, dependencies, users, shares, nameconfig, management, uninstall, themes, sourcebuild, categories, selfupdate
+from aegis import VERSION, TITLE, TAGLINE, system, actions, security, catalog, console, networking, lynis, panels, defense, toolinstall, logs, launch, dependencies, users, shares, nameconfig, management, uninstall, themes, sourcebuild, categories, selfupdate, appregistry, catalogmanager, appsearch
 from aegis.ui import UI, table
 
 ENTRY = Path(__file__).resolve()
@@ -77,6 +77,7 @@ def dispatch(request, origin):
             print('Enter a number from 8 to 128, or q to cancel.')
     if kind == 'app':
         plan = catalog.app_plan(request['app'], user)
+    elif kind=='catalog-manager':catalogmanager.menu(console.LANGUAGE,console.THEME);return
     elif kind=='self-update':return selfupdate.run(console.confirm,VERSION)
     elif kind=='hostname':plan=nameconfig.hostname_plan(request['hostname'],request.get('update_hosts',True))
     elif kind=='uninstall-app':plan=uninstall.plan(request['app'])
@@ -379,7 +380,7 @@ def monitoring_tools(ui):
     while True:
         versions=catalog.catalog_versions()
         entries=[(key,label+(' [Installed]' if versions.get(key) else ' [Install + open]'),catalog.app_information(key,versions.get(key)))
-                 for key,label,*_ in catalog.APPS if key in MONITOR_APPS]
+                 for key,label,*_ in catalog.visible_apps() if key in MONITOR_APPS or (key.startswith('custom-') and catalog.category_for(key) in ('Dashboards','System & hardware'))]
         key=ui.choose('Monitoring applications',entries)
         if key is None:return
         if key=='__refresh__':continue
@@ -522,15 +523,22 @@ def defense_menu(ui,key):
 @console.cancellable_menu
 def apps_menu(ui):
     while True:
-        entries=[('all','All applications','Complete alphabetical catalog, with uCareSystem pinned first.')]
+        entries=[('search','Search applications','Live filtering by name, APT package, category and description.'),('all','All applications','Complete alphabetical catalog, with uCareSystem pinned first.')]
+        visible=catalog.visible_apps()
+        custom_categories={row['key']:row['category'] for row in appregistry.load()['custom']}
         for category,_ in categories.GROUPS:
-            count=sum(categories.category(row[0])==category for row in catalog.APPS)
+            count=sum(custom_categories.get(row[0],categories.category(row[0]))==category for row in visible)
             entries.append((category,category+' ('+str(count)+')','Applications grouped by purpose; empty categories are placeholders for future additions.'))
         entries += [('docker-access','Docker: grant desktop user access','Explicit root-equivalent group membership.'),('freerdp','FreeRDP 3 client','Optional WinBoat desktop dependency.')]
         selected=ui.choose('App Installer — categories',entries)
         if selected is None:return
         if selected=='__refresh__':continue
-        if selected=='docker-access':do(ui,{'kind':'docker-access','user':ui.prompt('Desktop user','Χρήστης desktop',original_user())})
+        if selected=='search':
+            versions=catalog.catalog_versions();candidates=catalog.package_candidates()
+            rows=[(key,installed_label(name,versions.get(key)),catalog.app_information(key,versions.get(key),catalog.capability(key,candidates))) for key,name,*_ in catalog.visible_apps(candidates)]
+            found=appsearch.run(ui,rows)
+            if found and found!='__refresh__':app_actions(ui,found)
+        elif selected=='docker-access':do(ui,{'kind':'docker-access','user':ui.prompt('Desktop user','Χρήστης desktop',original_user())})
         elif selected=='freerdp':do(ui,{'kind':'install-security','package':'freerdp'})
         else:app_category(ui,selected)
 
@@ -539,7 +547,7 @@ def apps_menu(ui):
 def app_category(ui,group):
     while True:
         versions=catalog.catalog_versions();candidates=catalog.package_candidates()
-        rows=[row for row in catalog.APPS if group=='all' or categories.category(row[0])==group]
+        rows=[row for row in catalog.visible_apps(candidates) if group=='all' or catalog.category_for(row[0])==group]
         if not rows:ui.view(group,'No catalog applications in this category yet. / Δεν υπάρχουν ακόμη εφαρμογές σε αυτή την κατηγορία.');return
         entries=[]
         for key,name,*_ in rows:
@@ -559,7 +567,7 @@ def app_actions(ui,key):
     """Installed applications offer Open/Details rather than a failed reinstall."""
     while True:
         version=catalog.app_version(key)
-        name=next(row[1] for row in catalog.APPS if row[0]==key)
+        name=next(row[1] for row in catalog.all_apps() if row[0]==key)
         availability=catalog.capability(key,catalog.package_candidates())
         info=catalog.app_information(key,version,availability)
         entries=[]
@@ -644,6 +652,7 @@ def maintenance_menu(ui):
 def settings_menu(ui):
     choice = ui.choose('Settings', [('language', 'Language / Γλώσσα', 'English or Greek for Aegis menus. Alerts retain their independently selected language.'),
                                   ('theme', 'Theme', 'Slate, Blue, Nord, Dracula, Gruvbox, Solarized, Forest, Amber, Light and Plain.'),
+                                  ('catalog', 'Manage App Installer list', 'Add APT applications, hide/remove entries and restore supported built-ins; backups and Undo.'),
                                   ('remove', 'Uninstall Aegis', 'Remove the program only; preserve existing alerts and recovery data.'),
                                   ('update', 'Check / install update', 'Fetch release metadata and a verified installer from karanik.gr; explicit approval and program backup.'),
                                   ('about', 'About / update', 'Version, documentation and installation/update command.')])
@@ -653,6 +662,7 @@ def settings_menu(ui):
     elif choice == 'theme':
         value=ui.prompt('Theme','Χρωματικό θέμα',ui.theme,choices=list(themes.PALETTES))
         if value in themes.PALETTES:ui.theme=value;console.THEME=value;save_preferences(ui)
+    elif choice == 'catalog':do(ui,{'kind':'catalog-manager'})
     elif choice == 'update':
         try:
             if call_root({'kind':'self-update','language':ui.language,'theme':ui.theme}):raise SystemExit(0)

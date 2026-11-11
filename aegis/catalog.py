@@ -7,7 +7,7 @@ import pwd
 import re
 import shutil
 import urllib.request
-from . import system, appdata, categories
+from . import system, appdata, categories, appregistry
 from .actions import Plan
 
 APPS = [
@@ -41,6 +41,27 @@ APPS += [
 APPS=[APPS[0]]+sorted(APPS[1:],key=lambda row:row[0].casefold())
 
 
+def all_apps():
+    extra=[(r['key'],r['label'],r['description'],'https://packages.debian.org/search?keywords='+r['package']) for r in appregistry.load()['custom']]
+    return [APPS[0]]+sorted(APPS[1:]+extra,key=lambda row:row[1].casefold())
+
+
+def visible_apps(candidates=None):
+    hidden=set(appregistry.load()['hidden'])|appregistry.REMOVED_GUIDES
+    return [r for r in all_apps() if r[0] not in hidden and capability(r[0],candidates)[0]!='guide']
+
+
+def category_for(key):
+    row=appregistry.get(key) if key.startswith('custom-') else None
+    return row['category'] if row else categories.category(key)
+
+
+def package_for(key):
+    row=appregistry.get(key) if key.startswith('custom-') else None
+    if row:return row['package']
+    return DISTRO_SPECS[key][2] if key in DISTRO_SPECS else PACKAGE_NAMES.get(key,key)
+
+
 def package_candidate(package):
     code,text,_=system.command(['apt-cache','policy',package])
     match=re.search(r'^\s*Candidate:\s*(\S+)',text,re.M)
@@ -71,17 +92,17 @@ def managed_version(key):
 def catalog_versions():
     packages=package_versions()
     versions={}
-    for key,*_ in APPS:
-        package=DISTRO_SPECS[key][2] if key in DISTRO_SPECS else PACKAGE_NAMES.get(key,key)
+    for key,*_ in all_apps():
+        package=package_for(key)
         value=packages.get(package)
         if key=='docker':value=value or packages.get('docker.io')
-        if not value and shutil.which(COMMANDS.get(key,key)):value=managed_version(key) or 'external executable'
+        if not key.startswith('custom-') and not value and shutil.which(COMMANDS.get(key,key)):value=managed_version(key) or 'external executable'
         versions[key]=value
     return versions
 
 
 def package_candidates():
-    names=sorted(set([row[2] for row in appdata.DISTRO]+[PACKAGE_NAMES.get(row[0],row[0]) for row in appdata.UPSTREAM]))
+    names=sorted(set([row[2] for row in appdata.DISTRO]+[PACKAGE_NAMES.get(row[0],row[0]) for row in appdata.UPSTREAM]+[r['package'] for r in appregistry.load()['custom']]))
     code,text,_=system.command(['apt-cache','policy']+names)
     result={};current=None
     for line in text.splitlines():
@@ -93,6 +114,10 @@ def package_candidates():
 
 
 def capability(key,candidates=None):
+    if key.startswith('custom-'):
+        row=appregistry.get(key)
+        if not row:raise ValueError('Unknown custom application')
+        return ('apt','Custom APT package: '+row['package']) if candidates is None or candidates.get(row['package']) else ('unavailable','No APT candidate for '+row['package']+'. Refresh metadata to recheck.')
     if key=='psnet':return 'guide','Windows-only upstream; no Linux installer.'
     if key=='watcher':return 'guide','Exact project URL required; no unrelated package is substituted.'
     if key=='pnana' and not (candidates or {}).get(key):return 'guide','Manual source build: requires reviewed FTXUI/CMake dependencies; no automatic recipe yet.'
@@ -108,10 +133,14 @@ def capability(key,candidates=None):
 
 
 def app_information(key,version=None,availability=None):
-    row=next(x for x in APPS if x[0]==key)
+    row=next(x for x in all_apps() if x[0]==key)
     _,label,description,url=row
     lines=[label.upper(),'','What it does',description,'','Installation / status',
-           'Installed: '+(version or 'not detected'),'Category: '+categories.category(key)]
+           'Installed: '+(version or 'not detected'),'Category: '+category_for(key)]
+    if key.startswith('custom-'):
+        custom=appregistry.get(key)
+        lines+=['APT package: '+custom['package'],'Launcher: '+(custom['command'] or 'Package contents / usage details'),
+                'Custom APT entry. Open runs only a package-owned executable as your regular user. No root launcher or command arguments.']
     if availability:lines+=['Install method: '+availability[0],availability[1]]
     spec=DISTRO_SPECS.get(key) or UPSTREAM_SPECS.get(key)
     if spec:
@@ -198,6 +227,9 @@ def winboat_requirements(user):
 
 
 def app_version(key):
+    if key.startswith('custom-'):
+        row=appregistry.get(key)
+        return system.installed(row['package']) if row else None
     if key == 'docker':
         return system.installed('docker-ce') or system.installed('docker.io') or ('external runtime' if shutil.which('docker') else None)
     package=DISTRO_SPECS[key][2] if key in DISTRO_SPECS else PACKAGE_NAMES.get(key,key)
@@ -205,8 +237,14 @@ def app_version(key):
 
 
 def app_plan(key, user):
-    if key not in {x[0] for x in APPS}: raise ValueError('Unknown catalog application')
+    if key not in {x[0] for x in all_apps()}: raise ValueError('Unknown catalog application')
     if app_version(key): raise ValueError('Already installed. Existing applications are left untouched; use Maintenance for updates.')
+    if key.startswith('custom-'):
+        row=appregistry.get(key)
+        if not package_candidate(row['package']):raise ValueError('No APT candidate for '+row['package']+'; refresh metadata first.')
+        plan=package_plan([row['package']],'Install '+row['label']);plan.suppress_services=True
+        plan.details+=['Custom entry: automatic service starts are suppressed during installation. Existing configured repositories are used.']
+        return plan
     if key=='samba':
         from . import shares
         return shares.install_plan()

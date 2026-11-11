@@ -2,13 +2,60 @@
 
 > System info, security hardening and Telegram alerts in one tool.
 
-**Έκδοση 0.7.1 — πρώτη έκδοση για έλεγχο, με κύρια χρήση σε servers και υποστήριξη desktops σε Debian-based Linux.**
+**Έκδοση 0.8.0 — πρώτη έκδοση για έλεγχο, με κύρια χρήση σε servers και υποστήριξη desktops σε Debian-based Linux.**
 
 [English documentation](README.md)
 
 ![Δείγμα μενού Aegis](docs/preview.png)
 
 Το δείγμα παράγεται από τον κώδικα σχεδίασης του μενού με ενδεικτικά στοιχεία μηχανήματος. Δεν παρουσιάζει εγκατάσταση σε παραγωγικό server.
+
+## Νέα στην 0.8.0 — ζωντανή αναζήτηση και διαχείριση λίστας εφαρμογών
+
+![Live search — demo preview](docs/search-preview.png)
+
+### Search πρώτο στη λίστα
+
+**App Installer — categories → Search applications** είναι η πρώτη επιλογή. Πατάς Enter και αρχίζεις να γράφεις. Τα αποτελέσματα αλλάζουν **σε κάθε πλήκτρο**, χωρίς δεύτερο Enter. Η αναζήτηση καλύπτει όνομα, πακέτο, κατηγορία και περιγραφικές πληροφορίες. Δεν ξεχωρίζει κεφαλαία/πεζά και, αν γράψεις πολλές λέξεις, πρέπει να ταιριάζουν όλες. Με κενό πεδίο εμφανίζεται όλος ο ορατός κατάλογος.
+
+- ↑/↓ και Page Up/Page Down: μετακίνηση στα αποτελέσματα. Δεξιά εμφανίζονται πληροφορίες όταν υπάρχει αρκετό πλάτος.
+- Enter: ανοίγει τις ενέργειες της επιλεγμένης εφαρμογής. Η πληκτρολόγηση δεν εγκαθιστά ούτε εκκινεί πρόγραμμα.
+- Backspace/Delete: διόρθωση κειμένου. ←/→ και Home/End: μετακίνηση δρομέα. Ctrl+U: καθαρισμός.
+- Esc/Ctrl+C: επιστροφή στις κατηγορίες. Αν δεν βρεθεί αποτέλεσμα, συνεχίζεις να διορθώνεις ή ακυρώνεις.
+- Η ένδειξη `όνομα [Installed]` διατηρεί το χρώμα του theme.
+
+Κατάσταση πακέτων και διαθεσιμότητα φορτώνονται μία φορά κατά το άνοιγμα της αναζήτησης. Δεν εκτελείται APT σε κάθε πλήκτρο. Σε basic/dumb terminal χρησιμοποιείται απλό πεδίο αναζήτησης και μετά λίστα αποτελεσμάτων.
+
+### Settings → Manage App Installer list
+
+Οι παρακάτω ενέργειες αλλάζουν **μόνο τη λίστα**, όχι τα εγκατεστημένα προγράμματα:
+
+| Επιλογή | Τι κάνει |
+| --- | --- |
+| Add APT application | Προσθέτει πακέτο APT με όνομα, περιγραφή, κατηγορία και προαιρετικό εκτελέσιμο |
+| Remove entry / hide built-in | Διαγράφει προσαρμοσμένη καταχώριση ή κρύβει ενσωματωμένη εφαρμογή |
+| Restore hidden built-in entry | Επαναφέρει υποστηριζόμενη ενσωματωμένη εφαρμογή στη λίστα |
+| View catalog configuration | Δείχνει τις αποθηκευμένες προσαρμογές |
+
+Παράδειγμα με `duf`, αν υπάρχει στα repositories της διανομής σου:
+
+1. Settings → Manage App Installer list → Add APT application.
+2. Δίνεις πακέτο `duf`, όνομα `duf`, σύντομη περιγραφή και κατηγορία **Dashboards**.
+3. Προαιρετικό εκτελέσιμο: `duf`. Κενό σημαίνει προβολή αρχείων/οδηγιών του πακέτου αντί για αυτόματη εκκίνηση.
+4. Ελέγχεις το σχέδιο αλλαγής λίστας και πατάς Enter/y.
+5. Ανοίγεις App Installer/Search, βρίσκεις το duf και επιλέγεις Install, αν το θέλεις. **Η καταχώριση στη λίστα δεν κάνει εγκατάσταση.** Αν υπάρχει ήδη εγκατεστημένο, εμφανίζεται με `[Installed]`.
+
+Στο πεδίο εκτελέσιμου επιτρέπεται ένα όνομα χωρίς path, ορίσματα ή shell εντολές. Ελέγχεται ότι το εγκατεστημένο πακέτο περιλαμβάνει το εκτελέσιμο στο `/usr/bin` ή `/bin`. Εκτελείται ως ο αρχικός κανονικός χρήστης, χωρίς επιλογή root launcher. Δεν εισάγονται αυθαίρετα scripts/URLs GitHub ή νέα repositories. Στις προσαρμοσμένες εγκαταστάσεις αποτρέπεται η αυτόματη εκκίνηση υπηρεσιών όσο εκτελείται το APT· package scripts και scheduled jobs εξακολουθούν να ακολουθούν τη συμπεριφορά του πακέτου. Για Docker/NetworkManager χρησιμοποιούνται τα ενσωματωμένα προφίλ.
+
+Οι νέες εφαρμογές υποστηρίζουν Installed, Install και το υπάρχον ελεγχόμενο APT Uninstall. Το uninstall κρατά ρυθμίσεις/δεδομένα και ελέγχει dependencies/προστατευμένα πακέτα. Η επαναφορά πακέτων εξακολουθεί να εξαρτάται από τη διαθεσιμότητα παλιών `.deb`. Προσαρμοσμένες εφαρμογές στις κατηγορίες **Dashboards** και **System & hardware** εμφανίζονται επίσης στο System Monitor → Monitoring applications.
+
+Οι ρυθμίσεις αποθηκεύονται στο `/etc/aegis-linux-hardener/app-catalog.json`, έξω από τον φάκελο του προγράμματος, και διατηρούνται στις αναβαθμίσεις. Κάθε αλλαγή κρατά backup. Από **Reports & History → Undo actions / backups** επαναφέρεις προηγούμενη λίστα χωρίς εγκατάσταση/απεγκατάσταση προγραμμάτων ως παρενέργεια. Αν αφαιρέσεις προσαρμοσμένη καταχώριση, το εγκατεστημένο πακέτο μένει· πρόσθεσέ το ξανά για διαχείριση μέσα από το Aegis.
+
+### Αφαίρεση Guide only
+
+PNANA, psnet και watcher δεν εμφανίζονται πλέον στον κατάλογο. Φιλτράρονται και τυχόν άλλες καταχωρίσεις με χαρακτηρισμό **Guide only**. Η προεπιλεγμένη ορατή λίστα έχει **56 ενσωματωμένες εφαρμογές**, πριν από προσωπικές προσθήκες/αποκρύψεις. Οι **Unavailable** καταχωρίσεις APT διατηρούνται, επειδή μπορεί να γίνουν διαθέσιμες μετά από αλλαγή repositories/metadata. Δεν διαγράφεται τυχόν εγκατεστημένο αντίγραφο των εφαρμογών που αφαιρέθηκαν από τη λίστα.
+
+Έλεγχοι: **250 αυτοματοποιημένες δοκιμές**, οι προηγούμενοι **9 έλεγχοι διαλόγων**, **4 μεταβάσεις με καθυστερημένη είσοδο** από dashboard και πραγματικός έλεγχος ζωντανής αναζήτησης με μηδενικά αποτελέσματα, διόρθωση, επιλογή και ακύρωση. Δεν έγιναν εγκαταστάσεις/απεγκαταστάσεις, αλλαγές στις δικές σου ρυθμίσεις ή δημοσίευση στο site.
 
 ## Διόρθωση 0.7.1 — τα παράθυρα έκλειναν με «no input»
 
@@ -218,10 +265,10 @@ Debian/Ubuntu-based μηχάνημα, λογαριασμός SSH με sudo κα�
 
 ### 2. Κατέβασμα και μεταφορά από Windows
 
-Κατέβασε το `aegis-linux-hardener-v0.7.1.zip` στα Downloads. Άνοιξε **PowerShell στον υπολογιστή Windows**:
+Κατέβασε το `aegis-linux-hardener-v0.8.0.zip` στα Downloads. Άνοιξε **PowerShell στον υπολογιστή Windows**:
 
 ```powershell
-scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.7.1.zip" karanik@SERVER_IP:~/
+scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.8.0.zip" karanik@SERVER_IP:~/
 ```
 
 Το scp αντιγράφει το ZIP στο home του Linux χρήστη. Δεν κάνει εγκατάσταση. Αν χρησιμοποιείς άλλη θύρα SSH, βάλε `scp -P Η_ΘΥΡΑ ...` με κεφαλαίο P.
@@ -236,7 +283,7 @@ ssh karanik@SERVER_IP
 
 ```bash
 cd ~
-unzip -o aegis-linux-hardener-v0.7.1.zip
+unzip -o aegis-linux-hardener-v0.8.0.zip
 cd ~/aegis-linux-hardener
 sudo bash ./install-aegis.sh --install
 ```
@@ -367,14 +414,14 @@ App Installer → **htop** → **Install application** → διαβάζεις τ
 
 ```powershell
 # Αντικατάστησε το SERVER_IP με την IP του Linux server.
-scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.7.1.zip" karanik@SERVER_IP:~/
+scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.8.0.zip" karanik@SERVER_IP:~/
 ```
 
 **2. Από το SSH terminal του Linux:**
 
 ```bash
 cd ~
-unzip -o aegis-linux-hardener-v0.7.1.zip
+unzip -o aegis-linux-hardener-v0.8.0.zip
 cd ~/aegis-linux-hardener
 sudo bash ./install-aegis.sh --install
 ```
@@ -412,12 +459,9 @@ aegis
 
 | Εφαρμογή | Διευκρίνιση |
 | --- | --- |
-| psnet | Πληροφοριακή καταχώριση: το upstream χρησιμοποιεί Windows APIs. Δεν εγκαθίσταται ως εργαλείο Linux. |
 | hwinfo-tui | Εγκαθίσταται σε απομονωμένο Python περιβάλλον όπου υποστηρίζεται. Διαβάζει Windows HWiNFO CSV· για τοπικούς αισθητήρες Linux υπάρχει lm-sensors. |
 | rovr | Έλεγχος απαιτούμενης Python πριν την εγκατάσταση. Η τρέχουσα 0.10.3 απαιτεί >=3.13,<3.15. Δεν αντικαθίσταται η system Python. |
 | netscanner | APT when available; otherwise reviewed isolated source build with a regular user and verified source checksum. |
-| PNANA | APT when available; otherwise Guide only. No automatic source installation is claimed. |
-| watcher | Χρειάζεται ακριβές URL του project. Δεν εγκαθίσταται αυθαίρετα το ομώνυμο OpenStack πακέτο. |
 | hddtemp / rcconf / rtop | Έλεγχος διαθεσιμότητας στη συγκεκριμένη έκδοση και στα υπάρχοντα APT metadata. |
 
 Τα ngrok/tmate εγκαθίστανται χωρίς ενεργοποίηση tunnel ή shared session. Τα εργαλεία capture δεν ξεκινούν σύλληψη πακέτων κατά την εγκατάσταση. Η απομονωμένη εγκατάσταση Python χτίζεται με κανονικό χρήστη και μετά γίνεται root-owned στο `/opt/aegis-tools/NAME`, με launcher στο `/usr/local/bin/NAME`. Περιλαμβάνεται στο backup. Η μετέπειτα επεξεργασία/διαγραφή αρχείων από εξωτερικές εφαρμογές δεν καλύπτεται από το installation undo.

@@ -2,7 +2,7 @@
 
 > System info, security hardening and Telegram alerts in one tool.
 
-**Version 0.7.1 — review release for Debian-based servers and desktops.**
+**Version 0.8.0 — review release for Debian-based servers and desktops.**
 
 Aegis is an SSH-friendly terminal toolkit combining system information, process monitoring, selective security changes, application installation, and **Linux Telegram Alerts**. Servers are the primary target; desktop utilities are available when their prerequisites exist.
 
@@ -11,6 +11,47 @@ Aegis is an SSH-friendly terminal toolkit combining system information, process 
 ![Aegis menu demo](docs/preview.png)
 
 *Preview rendered from the menu drawing code using demo host information. It is not a screenshot of changes applied to a production server.*
+
+## New in 0.8.0 — live search and an editable App Installer list
+
+![Live search — demo preview](docs/search-preview.png)
+
+### Search first, filter while typing
+
+**App Installer — categories → Search applications** is the first item. Enter opens the search page. Start typing: matching applications update immediately, without pressing Enter. Search covers the displayed name, package, category and descriptive information. Multiple words must all match; matching ignores letter case. An empty search shows the full visible catalog.
+
+- ↑/↓ and Page Up/Page Down move through results; information appears alongside the selected result on wide terminals.
+- Enter opens the selected application's action menu. Typing and filtering never install or launch anything.
+- Backspace/Delete edit the query; ←/→, Home/End move its cursor; Ctrl+U clears it.
+- Esc/Ctrl+C returns to categories. With no matches, continue editing or cancel.
+- Installed results retain the `name [Installed]` theme-colored badge.
+
+Package status and availability are collected once per search page, then filtering is local; no APT request runs on every keystroke. On basic/dumb terminals the fallback uses a typed query followed by a result list rather than live rendering.
+
+### Add or remove applications from the list
+
+Open **Settings → Manage App Installer list**. These actions change the list only; they do not install/uninstall packages.
+
+| Option | Result |
+| --- | --- |
+| Add APT application | Register a package, display name, description, category and optional executable |
+| Remove entry / hide built-in | Delete a custom entry, or hide a built-in entry; installed software/data remain |
+| Restore hidden built-in entry | Show a supported built-in again |
+| View catalog configuration | Inspect the persisted customization |
+
+Example: add `duf` if your configured Debian/Ubuntu repositories provide it. Choose the name `duf`, category **Dashboards**, a short description and optional executable `duf`. Review the list-change plan and accept with Enter/y. Then open App Installer/Search, select duf and explicitly choose Install. Adding its catalog entry does not install the package. If it is already installed, it is marked `[Installed]` immediately.
+
+For an optional launcher, enter **one executable name only**, without a path, arguments or shell syntax. Aegis checks that the installed package lists that executable in `/usr/bin` or `/bin`, and opens it as the originating regular user. Leave the field empty for package contents/usage details instead of automatic launch. No arbitrary root command, GitHub installer URL or repository is accepted in custom definitions. Standard custom installs suppress automatic service startup while APT runs; package scripts/scheduled tasks still follow package behavior. Use reviewed built-in profiles for applications such as Docker or NetworkManager.
+
+Custom entries support the same installed status, install and reviewed APT uninstall action. Package removal keeps configuration/data and uses the existing dependency/protected-package checks. Package undo still depends on old `.deb` availability. Custom **Dashboards** and **System & hardware** entries also appear in System Monitor → Monitoring applications.
+
+Changes are stored in `/etc/aegis-linux-hardener/app-catalog.json` outside the program directory, so upgrades preserve them. Each edit uses the normal backup/Undo system. **Reports & History → Undo actions / backups** restores an earlier list configuration; it does not install/uninstall programs as a side effect. If an application was removed from the custom list but remains installed, add the same package again to manage it through Aegis.
+
+### Removed guide-only entries
+
+PNANA, psnet and watcher are excluded from the visible catalog. Any other entry classified **Guide only** is filtered out too. This leaves **56 default visible built-in applications**, before personal additions/hiding. **Unavailable** APT entries remain distinguishable: they can become available when repository metadata changes and are not the same as guide-only entries. No installed copy of a removed guide entry is deleted.
+
+Validation: **250 automated tests**, the existing **9 modal PTY checks**, **4 delayed-input transitions** from the live dashboard, and a real PTY live-search flow covering no matches, refiltering before Enter, selection, idle input and cancellation. No package installation/removal, user configuration or hosted release was changed during these checks.
 
 ## Fixed in 0.7.1 — dialogs closing with “no input”
 
@@ -214,10 +255,10 @@ Use a Debian/Ubuntu-based machine, an SSH account with sudo, and Python 3.9 or l
 
 ### 2. Download and copy the ZIP
 
-Download `aegis-linux-hardener-v0.7.1.zip` to Downloads on your workstation. On Windows, open **PowerShell on your workstation**:
+Download `aegis-linux-hardener-v0.8.0.zip` to Downloads on your workstation. On Windows, open **PowerShell on your workstation**:
 
 ```powershell
-scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.7.1.zip" karanik@SERVER_IP:~/
+scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.8.0.zip" karanik@SERVER_IP:~/
 ```
 
 This copies the ZIP to the Linux user's home. It does not install anything. If SSH uses a custom port, use `scp -P YOUR_PORT ...` (capital P).
@@ -232,7 +273,7 @@ Run the following **in the Linux terminal**, not Windows PowerShell:
 
 ```bash
 cd ~
-unzip -o aegis-linux-hardener-v0.7.1.zip
+unzip -o aegis-linux-hardener-v0.8.0.zip
 cd ~/aegis-linux-hardener
 sudo bash ./install-aegis.sh --install
 ```
@@ -350,12 +391,9 @@ ngrok uses its official standalone Linux download. Installing **ngrok/tmate neve
 
 | Entry | Special handling |
 | --- | --- |
-| psnet | Included with information only: upstream Windows APIs are not supported on Linux. |
 | hwinfo-tui | Isolated Python install when compatible. Reads HWiNFO CSV produced on Windows; use lm-sensors for Linux sensor collection. |
 | rovr | Isolated Python install when compatible. Current upstream 0.10.3 requires Python >=3.13,<3.15; older system Python is not replaced. |
 | netscanner | APT when available; otherwise reviewed isolated source build with a regular user and verified source checksum. |
-| PNANA | APT when available; otherwise Guide only. No automatic source installation is claimed. |
-| watcher | Information-only pending an exact project URL. No unrelated OpenStack package is substituted. |
 | hddtemp / rcconf / rtop | Legacy/suite-dependent packages. Availability is checked against the host's APT metadata. |
 
 For Python tools, dependency installation/build runs under the originating regular user in an isolated environment; the final environment is root-owned. The Python requirement is checked before any package changes. Aegis does not alter the system Python interpreter. Tools installed in this manner use `/opt/aegis-tools/NAME` and `/usr/local/bin/NAME`, both covered by the action snapshot. Later files edited/deleted inside external applications are outside installation undo.
@@ -392,18 +430,18 @@ Official Docker repository setup accepts known Debian base suites and Ubuntu sui
 
 ## Quick start — local ZIP
 
-1. Download and copy `aegis-linux-hardener-v0.7.1.zip` to the target machine. Example from Windows PowerShell:
+1. Download and copy `aegis-linux-hardener-v0.8.0.zip` to the target machine. Example from Windows PowerShell:
 
 ```powershell
 # Replace SERVER_IP with the target address.
-scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.7.1.zip" karanik@SERVER_IP:~/
+scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.8.0.zip" karanik@SERVER_IP:~/
 ```
 
 2. In the Linux SSH terminal:
 
 ```bash
 cd ~
-unzip -o aegis-linux-hardener-v0.7.1.zip
+unzip -o aegis-linux-hardener-v0.8.0.zip
 cd ~/aegis-linux-hardener
 sudo bash ./install-aegis.sh --install
 ```

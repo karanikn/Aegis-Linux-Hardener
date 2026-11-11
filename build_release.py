@@ -9,7 +9,7 @@ import tarfile
 import zipfile
 
 ROOT = Path(__file__).resolve().parent
-VERSION = '0.7.1'
+VERSION = '0.8.0'
 EXCLUDED = {'install-aegis.sh', 'SHA256SUMS', 'release.json'}
 
 

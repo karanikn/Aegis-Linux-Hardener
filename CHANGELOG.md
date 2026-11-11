@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.8.0 — 2026-11-11
+
+- Search is first in App Installer categories; local per-keystroke filtering, result navigation, installed badges and detail panel.
+- Exclude PNANA, psnet, watcher and all Guide only capabilities from the visible catalog.
+- Settings catalog manager adds validated APT-only definitions, removes custom entries, hides/restores built-ins and previews persisted config.
+- Catalog config changes use existing backups/Undo and survive program upgrades; no implicit package installation/removal.
+- Custom entries integrate with installed status, guarded install/removal, regular-user package-owned launchers and monitoring categories.
+- 250 automated tests; live-search PTY, nine modal checks and four dashboard timeout regressions pass.
+
 ## 0.7.1 — 2026-11-11
 
 - Fix inherited curses input timeout: live dashboard polling no longer closes idle questions with "no input".

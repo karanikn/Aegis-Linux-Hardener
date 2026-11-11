@@ -8,6 +8,10 @@ from . import VERSION, TITLE, TAGLINE, system, console, themes
 
 
 GREEK = {
+ 'App Installer — categories':'Εγκατάσταση εφαρμογών — κατηγορίες',
+ 'Search applications':'Αναζήτηση εφαρμογών', 'Manage App Installer list':'Διαχείριση λίστας εφαρμογών',
+ 'Add APT application':'Προσθήκη εφαρμογής APT', 'Remove entry / hide built-in':'Αφαίρεση / απόκρυψη καταχώρισης',
+ 'Restore hidden built-in entry':'Επαναφορά κρυμμένης εφαρμογής', 'View catalog configuration':'Προβολή ρυθμίσεων καταλόγου',
  'User Management':'Διαχείριση χρηστών', 'Share Management':'Διαχείριση κοινοχρήστων',
  'Logs':'Καταγραφές / Logs', 'Help':'Βοήθεια',
  'Dashboard': 'Επισκόπηση συστήματος', 'System Monitor': 'Παρακολούθηση συστήματος',

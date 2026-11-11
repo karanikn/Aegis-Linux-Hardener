@@ -52,7 +52,7 @@ def requirements(request):
             rows.append({'name':'Netplan YAML helper','packages':['python3-yaml'],'commands':[],'module':'yaml'})
     elif kind=='open-app':
         key=request.get('app')
-        if key in {r[0] for r in catalog.APPS}:rows=[{'name':key,'app':key,'commands':[],'packages':[]}]
+        if key in {r[0] for r in catalog.all_apps()}:rows=[{'name':key,'app':key,'commands':[],'packages':[]}]
     elif kind=='logs-browser':rows=[{'name':'ccze log colors','app':'ccze','commands':[],'packages':[],'optional':True}]
     elif kind=='maintenance' and request.get('mode')=='ucare':rows=[{'name':'uCareSystem Core','app':'ucaresystem-core','commands':[],'packages':[]}]
     elif kind=='monitor-command' and request.get('command')=='ss':rows=[command_requirement('ss')]

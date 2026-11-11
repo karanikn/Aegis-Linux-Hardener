@@ -5,7 +5,7 @@ import pwd
 import re
 import shutil
 import subprocess
-from . import catalog,console,system
+from . import catalog,console,system,appregistry
 
 # fixed defaults; no tunnel, daemon, scanner target or service activation is implicit.
 DEFAULTS={
@@ -39,7 +39,16 @@ GUIDES={
 
 
 def launch_args(key,detail=''):
-    if key not in {x[0] for x in catalog.APPS}:raise ValueError('Unknown catalog application')
+    if key not in {x[0] for x in catalog.all_apps()}:raise ValueError('Unknown catalog application')
+    custom=appregistry.get(key) if key.startswith('custom-') else None
+    if custom:
+        if not custom['command']:return None
+        code,contents,_=system.command(['dpkg-query','-L',custom['package']])
+        owned=set(contents.splitlines()) if code==0 else set()
+        for directory in ('/usr/bin','/bin'):
+            path=Path(directory)/custom['command']
+            if str(path) in owned and path.is_file() and os.access(path,os.X_OK):return [str(path)]
+        raise ValueError('The configured executable is not owned by this installed package in /usr/bin or /bin. Edit/remove the entry or review package contents.')
     if key in GUIDES:return None
     if key in ('iftop','tcptrack','tcpdump'):
         if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.:-]{0,14}',detail):raise ValueError('Choose a valid interface')
@@ -69,6 +78,10 @@ def open_app(key,user,detail=''):
         print(GUIDES[key]);return
     if not catalog.app_version(key):raise ValueError('Application is not installed; install it first.')
     args=launch_args(key,detail)
+    if args is None:
+        custom=appregistry.get(key)
+        print('Package contents / usage details: '+custom['package'])
+        print(system.command(['dpkg-query','-L',custom['package']])[1]);return
     account=pwd.getpwnam(user)
     if os.geteuid()==0 and key not in ROOT_TOOLS:
         if account.pw_uid==0:raise ValueError('Open this user-facing tool from a regular account with sudo, so it runs under your own user profile.')
