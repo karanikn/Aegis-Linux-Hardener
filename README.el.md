@@ -1,5 +1,14 @@
 # Aegis Linux Hardener
 
+<!-- aegis:badges -->
+![Version](https://img.shields.io/badge/version-0.8.0-0078D4)
+![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)
+![Platform](https://img.shields.io/badge/platform-Debian%20%7C%20Ubuntu-E95420?logo=linux&logoColor=white)
+![Interface](https://img.shields.io/badge/interface-TUI-5E81AC)
+![Languages](https://img.shields.io/badge/languages-EN%20%7C%20EL-2E8B57)
+![AI Assistance](https://img.shields.io/badge/AI%20assisted-ChatGPT%20%2F%20Codex-10A37F)
+<!-- /aegis:badges -->
+
 > System info, security hardening and Telegram alerts in one tool.
 
 **Έκδοση 0.8.0** · Διαχείριση Debian-based servers και desktops
@@ -331,3 +340,26 @@ python3 tests/pty_timeout.py
 python3 tests/pty_search.py
 bash install-aegis.sh --check
 ```
+
+---
+
+## 👤 Δημιουργός
+
+**Νικόλαος Καρανικόλας — Nikolaos Karanikolas**  
+🌐 [karanik.gr](https://karanik.gr)
+
+---
+
+## 🤖 Συνδρομή τεχνητής νοημοσύνης
+
+Η ανάπτυξη υποστηρίχθηκε από τα **ChatGPT και Codex της [OpenAI](https://openai.com/)**, με συνδρομή στην υλοποίηση, στον σχεδιασμό του terminal interface, στην τεκμηρίωση και στην προετοιμασία αυτοματοποιημένων δοκιμών.
+
+Η κατεύθυνση του έργου, η έγκριση εκδόσεων και οι αποφάσεις εγκατάστασης παραμένουν ευθύνη του συντηρητή και των διαχειριστών που χρησιμοποιούν το εργαλείο. Η συνδρομή AI αφορά τη διαδικασία ανάπτυξης· η εκτέλεση του Aegis δεν απαιτεί λογαριασμό ή υπηρεσία AI.
+
+---
+
+## ⚠️ Αποποίηση ευθύνης
+
+Το Aegis εκτελεί διαχειριστικές ενέργειες που μπορούν να τροποποιήσουν πακέτα, υπηρεσίες, πολιτικές ασφάλειας, ρυθμίσεις δικτύου και λογαριασμούς. Έλεγξε κάθε σχέδιο αλλαγής, διατήρησε πρόσβαση console και δοκίμασε τις λειτουργικές αλλαγές πριν από εφαρμογή σε παραγωγή.
+
+Το λογισμικό παρέχεται **ως έχει**, χωρίς εγγύηση καταλληλότητας για κάθε σύστημα ή περιβάλλον. Ο χρήστης είναι υπεύθυνος για τα κατάλληλα αντίγραφα ασφαλείας και την αξιολόγηση των επιπτώσεων των επιλεγμένων ενεργειών. Το στοχευμένο Undo δεν υποκαθιστά δοκιμασμένο system backup ή VM snapshot και δεν εγγυάται αποκατάσταση από απώλεια δεδομένων, διακοπή υπηρεσιών ή κάθε εξωτερική επίδραση.

@@ -1,5 +1,14 @@
 # Aegis Linux Hardener
 
+<!-- aegis:badges -->
+![Version](https://img.shields.io/badge/version-0.8.0-0078D4)
+![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)
+![Platform](https://img.shields.io/badge/platform-Debian%20%7C%20Ubuntu-E95420?logo=linux&logoColor=white)
+![Interface](https://img.shields.io/badge/interface-TUI-5E81AC)
+![Languages](https://img.shields.io/badge/languages-EN%20%7C%20EL-2E8B57)
+![AI Assistance](https://img.shields.io/badge/AI%20assisted-ChatGPT%20%2F%20Codex-10A37F)
+<!-- /aegis:badges -->
+
 > System info, security hardening and Telegram alerts in one tool.
 
 **Version 0.8.0** · Debian-based servers and desktops
@@ -331,3 +340,26 @@ python3 tests/pty_timeout.py
 python3 tests/pty_search.py
 bash install-aegis.sh --check
 ```
+
+---
+
+## 👤 Author
+
+**Nikolaos Karanikolas**  
+🌐 [karanik.gr](https://karanik.gr)
+
+---
+
+## 🤖 AI Assistance
+
+Development was supported by **ChatGPT and Codex from [OpenAI](https://openai.com/)**. AI assistance contributed to implementation, terminal interface design, documentation and automated test preparation.
+
+Project direction, release approval and deployment decisions remain the responsibility of the maintainer and the administrators using the tool. AI assistance is part of the development process; running Aegis does not require an AI account or service.
+
+---
+
+## ⚠️ Disclaimer
+
+Aegis performs administrative operations that can modify packages, services, security policies, network settings and account records. Review each change plan, retain console access and test operational changes before deploying them to production.
+
+The software is provided **as is**, without a guarantee of suitability for every system or environment. Users are responsible for maintaining appropriate backups and assessing the impact of their selected actions. Scoped Undo is not a substitute for a tested system backup or VM snapshot, and does not guarantee recovery from data loss, service interruption or every external side effect.
