@@ -1,0 +1,609 @@
+test_archive_symlink_rejected (test_aegis.ArchiveTests.test_archive_symlink_rejected) ... ok
+test_path_traversal_rejected (test_aegis.ArchiveTests.test_path_traversal_rejected) ... ok
+test_caddy_local_file_is_written_after_package_install (test_aegis.CatalogTests.test_caddy_local_file_is_written_after_package_install) ... ok
+test_cockpit_binds_only_loopback (test_aegis.CatalogTests.test_cockpit_binds_only_loopback) ... ok
+test_docker_does_not_remove_conflicting_runtime (test_aegis.CatalogTests.test_docker_does_not_remove_conflicting_runtime) ... ok
+test_existing_apps_are_not_reinstalled_or_migrated (test_aegis.CatalogTests.test_existing_apps_are_not_reinstalled_or_migrated) ... ok
+test_missing_winboat_requirements_do_not_trigger_install (test_aegis.CatalogTests.test_missing_winboat_requirements_do_not_trigger_install) ... ok
+test_release_digest_mismatch_rejected (test_aegis.CatalogTests.test_release_digest_mismatch_rejected) ... ok
+test_ucare_first_and_requested_apps_present (test_aegis.CatalogTests.test_ucare_first_and_requested_apps_present) ... ok
+test_webmin_preserves_tls_settings_and_limits_binding (test_aegis.CatalogTests.test_webmin_preserves_tls_settings_and_limits_binding) ... ok
+test_fail2ban_plan_limits_what_it_changes (test_aegis.SecurityTests.test_fail2ban_plan_limits_what_it_changes) ... ok
+test_ip_and_jail_validation_reject_injection (test_aegis.SecurityTests.test_ip_and_jail_validation_reject_injection) ... ok
+test_keys_only_requires_explicit_verified_session (test_aegis.SecurityTests.test_keys_only_requires_explicit_verified_session) ... ok
+test_no_invalid_or_unavailable_jail (test_aegis.SecurityTests.test_no_invalid_or_unavailable_jail) ... ok
+test_sysctl_does_not_disable_forwarding (test_aegis.SecurityTests.test_sysctl_does_not_disable_forwarding) ... ok
+test_unknown_privileged_action_is_rejected (test_aegis.SecurityTests.test_unknown_privileged_action_is_rejected) ... ok
+test_docker_base_maps_derivative_to_ubuntu (test_aegis.SystemTests.test_docker_base_maps_derivative_to_ubuntu) ... ok
+test_memory_uses_available (test_aegis.SystemTests.test_memory_uses_available) ... ok
+test_missing_optional_command_does_not_crash (test_aegis.SystemTests.test_missing_optional_command_does_not_crash) ... ok
+test_non_debian_not_claimed_supported (test_aegis.SystemTests.test_non_debian_not_claimed_supported) ... ok
+test_os_release_does_not_execute_shell (test_aegis.SystemTests.test_os_release_does_not_execute_shell) ... ok
+test_unknown_suite_not_guessed (test_aegis.SystemTests.test_unknown_suite_not_guessed) ... ok
+test_apply_and_manual_restore_preserve_modes (test_aegis.TransactionTests.test_apply_and_manual_restore_preserve_modes) ... ok
+test_cancel_creates_no_snapshot_or_file_change (test_aegis.TransactionTests.test_cancel_creates_no_snapshot_or_file_change) ... ok
+test_existing_policy_is_not_overwritten (test_aegis.TransactionTests.test_existing_policy_is_not_overwritten) ... ok
+test_failed_validation_restores_and_records_failure (test_aegis.TransactionTests.test_failed_validation_restores_and_records_failure) ... ok
+test_missing_timer_support_blocks_before_writes (test_aegis.TransactionTests.test_missing_timer_support_blocks_before_writes) ... ok
+test_new_file_removed_on_rollback (test_aegis.TransactionTests.test_new_file_removed_on_rollback) ... ok
+test_new_ssh_connection_confirms_and_stops_timer (test_aegis.TransactionTests.test_new_ssh_connection_confirms_and_stops_timer) ... ok
+test_pending_change_blocks_another_apply (test_aegis.TransactionTests.test_pending_change_blocks_another_apply) ... ok
+test_policy_guard_covers_package_and_local_config (test_aegis.TransactionTests.test_policy_guard_covers_package_and_local_config) ... ok
+test_same_ssh_connection_cannot_confirm (test_aegis.TransactionTests.test_same_ssh_connection_cannot_confirm) ... ok
+test_symlink_write_is_refused (test_aegis.TransactionTests.test_symlink_write_is_refused) ... ok
+test_timer_armed_before_file_mutation (test_aegis.TransactionTests.test_timer_armed_before_file_mutation) ... ok
+test_unusable_terminal_falls_back_to_numbered_menu (test_aegis.UITests.test_unusable_terminal_falls_back_to_numbered_menu) ... ok
+test_429_persists_and_obeys_retry_after (test_alerts.AlertsTests.test_429_persists_and_obeys_retry_after) ... ok
+test_backoff_skips_network (test_alerts.AlertsTests.test_backoff_skips_network) ... ok
+test_cert_expired_alert (test_alerts.AlertsTests.test_cert_expired_alert) ... ok
+test_certbot_success_requires_explicit_message (test_alerts.AlertsTests.test_certbot_success_requires_explicit_message) ... ok
+test_cursor_and_events_rollback_together (test_alerts.AlertsTests.test_cursor_and_events_rollback_together) ... ok
+test_docker_state_changed (test_alerts.AlertsTests.test_docker_state_changed) ... ok
+test_fail2ban_initial_eof_append_rotation (test_alerts.AlertsTests.test_fail2ban_initial_eof_append_rotation) ... ok
+test_journal_replay_dedup (test_alerts.AlertsTests.test_journal_replay_dedup) ... ok
+test_migration_keeps_message (test_alerts.AlertsTests.test_migration_keeps_message) ... ok
+test_no_arbitrary_log_forwarding (test_alerts.AlertsTests.test_no_arbitrary_log_forwarding) ... ok
+test_oom_and_kernel (test_alerts.AlertsTests.test_oom_and_kernel) ... ok
+test_queue_limit_preserves_existing (test_alerts.AlertsTests.test_queue_limit_preserves_existing) ... ok
+test_service_inactive_is_not_recovery (test_alerts.AlertsTests.test_service_inactive_is_not_recovery) ... ok
+test_ssh_extracts_fields_without_raw_log (test_alerts.AlertsTests.test_ssh_extracts_fields_without_raw_log) ... ok
+test_ssh_failure_and_sudo (test_alerts.AlertsTests.test_ssh_failure_and_sudo) ... ok
+test_successful_delivery_deletes_only_after_api_ok (test_alerts.AlertsTests.test_successful_delivery_deletes_only_after_api_ok) ... ok
+test_sustained_limit_and_one_recovery (test_alerts.AlertsTests.test_sustained_limit_and_one_recovery) ... ok
+test_token_api_error_is_redacted (test_alerts.AlertsTests.test_token_api_error_is_redacted) ... ok
+test_unban_ipv6 (test_alerts.AlertsTests.test_unban_ipv6) ... ok
+test_unicode_persistent_queue (test_alerts.AlertsTests.test_unicode_persistent_queue) ... ok
+test_failed_enable_rolls_back_files (test_alerts.InstallerTests.test_failed_enable_rolls_back_files) ... 
+────────────────────────────────────────────────────────────────────
+test
+────────────────────────────────────────────────────────────────────
+test
+
+
+Managed file changes:
+/tmp/tmp6vcp6uz3/config
+    new
+
+Commands:
+
+Apply this plan? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+Backup/change ID: 20261111-130725-d84b8aed
+Applied. Managed-file backup: /tmp/tmp6vcp6uz3/state/backups/20261111-130725-d84b8aed
+
+────────────────────────────────────────────────────────────────────
+test
+────────────────────────────────────────────────────────────────────
+test
+
+
+Managed file changes:
+/tmp/tmp3_ahemx_/config
+    new
+
+Commands:
+
+Apply this plan? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+Cancelled. No plan changes applied.
+
+────────────────────────────────────────────────────────────────────
+install
+────────────────────────────────────────────────────────────────────
+install
+
+
+Managed file changes:
+
+Commands:
+
+Apply this plan? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+
+────────────────────────────────────────────────────────────────────
+test
+────────────────────────────────────────────────────────────────────
+test
+
+
+Managed file changes:
+/tmp/tmpc9w7cge7/config
+    new
+
+Commands:
+  fake-validator
+
+Apply this plan? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+Backup/change ID: 20261111-130725-480e58d0
+
+────────────────────────────────────────────────────────────────────
+critical
+────────────────────────────────────────────────────────────────────
+critical
+
+
+Managed file changes:
+
+Commands:
+
+Automatic rollback is armed for 180 seconds BEFORE changes.
+Open a SECOND SSH connection and run the displayed confirm command.
+
+Apply this plan? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+
+────────────────────────────────────────────────────────────────────
+new
+────────────────────────────────────────────────────────────────────
+new
+
+
+Managed file changes:
+/tmp/tmpxq97ns8n/new-file
+    content
+
+Commands:
+
+Apply this plan? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+Backup/change ID: 20261111-130725-8fbd8baf
+Applied. Managed-file backup: /tmp/tmpxq97ns8n/state/backups/20261111-130725-8fbd8baf
+
+Verify access works in this NEW session. Keep the change? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+Change confirmed; automatic rollback cancelled.
+
+────────────────────────────────────────────────────────────────────
+test
+────────────────────────────────────────────────────────────────────
+test
+
+
+Managed file changes:
+/tmp/tmpnw3chalz/config
+    new
+
+Commands:
+
+Apply this plan? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+
+────────────────────────────────────────────────────────────────────
+package
+────────────────────────────────────────────────────────────────────
+package
+
+
+Managed file changes:
+/tmp/tmpnct0o2n5/config (configured after package installation, before service start)
+
+Commands:
+  fake-install
+  fake-start
+
+Apply this plan? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+Backup/change ID: 20261111-130725-796c42dd
+Applied. Managed-file backup: /tmp/tmpnct0o2n5/state/backups/20261111-130725-796c42dd
+
+────────────────────────────────────────────────────────────────────
+critical
+────────────────────────────────────────────────────────────────────
+critical
+
+
+Managed file changes:
+/tmp/tmpgvlhi8vw/config
+    new
+
+Commands:
+
+Automatic rollback is armed for 180 seconds BEFORE changes.
+Open a SECOND SSH connection and run the displayed confirm command.
+
+Apply this plan? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+Backup/change ID: 20261111-130725-d8270e6f
+Confirm in a NEW connection: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpgvlhi8vw/state/backups/20261111-130725-d8270e6f/runner/aegis.py confirm 20261111-130725-d8270e6f
+
+Open a NEW SSH connection (use the NEW IP after a network change), then run:
+sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpgvlhi8vw/state/backups/20261111-130725-d8270e6f/runner/aegis.py confirm 20261111-130725-d8270e6f
+If not confirmed, the managed files/rules will be restored after 180 seconds.
+
+Aegis Linux Hardener v0.7.0
+02e3b4c684fa | Debian GNU/Linux 13 (trixie) | x86_64 | 9 CPU
+test
+1. Test — Read only
+
+Select number, r=refresh, Enter=back
+Enter: default · ↑: edit default · Esc/Ctrl+C or /back: return
+Delivery pending; code=429; retry in 120s
+Delivery pending; code=400; retry in 60s
+
+────────────────────────────────────────────────────────────────
+Language / Γλώσσα: [1] English  [2] Ελληνικά
+Προεπιλογή: 1
+Linux Telegram Alerts v1.2.0
+Δημιουργεί δικό του service/timer. Δεν αλλάζει SSH, firewall ή Fail2Ban.
+
+────────────────────────────────────────────────────────────────
+Όνομα πελάτη / server
+Προεπιλογή: TENA-Deb-01
+
+────────────────────────────────────────────────────────────────
+Bot Token (Enter=διατήρηση)
+ok
+test_install_targets_permissions_and_units (test_alerts.InstallerTests.test_install_targets_permissions_and_units) ... ok
+test_all_translatable_literals_have_english_translation (test_alerts.NewBehaviorTests.test_all_translatable_literals_have_english_translation) ... ok
+test_core_missing_still_explains_required_systemd (test_alerts.NewBehaviorTests.test_core_missing_still_explains_required_systemd) ... ok
+test_english_ui_and_message (test_alerts.NewBehaviorTests.test_english_ui_and_message) ... ok
+test_language_choice_default_and_greek (test_alerts.NewBehaviorTests.test_language_choice_default_and_greek) ... ok
+test_missing_certificates_does_not_queue_problem (test_alerts.NewBehaviorTests.test_missing_certificates_does_not_queue_problem) ... ok
+test_missing_docker_skips_and_continues (test_alerts.NewBehaviorTests.test_missing_docker_skips_and_continues) ... ok
+test_unavailable_checkbox_cannot_be_selected (test_alerts.NewBehaviorTests.test_unavailable_checkbox_cannot_be_selected) ... ok
+test_irreversible_existing_bpf_lock_is_not_treated_as_reversible (test_v02.IdentityV02Tests.test_irreversible_existing_bpf_lock_is_not_treated_as_reversible) ... ok
+test_ssh_identity_recovered_through_sudo_ancestor (test_v02.IdentityV02Tests.test_ssh_identity_recovered_through_sudo_ancestor) ... ok
+test_install_creates_readable_program_and_launcher_with_undo (test_v02.InstallerModeTests.test_install_creates_readable_program_and_launcher_with_undo) ... ok
+test_portable_does_not_create_installed_paths (test_v02.InstallerModeTests.test_portable_does_not_create_installed_paths) ... ok
+test_core_dump_policy_is_file_based_and_undoable (test_v02.LynisTests.test_core_dump_policy_is_file_based_and_undoable) ... ok
+test_findings_parser_maps_control_without_executing_it (test_v02.LynisTests.test_findings_parser_maps_control_without_executing_it) ... ok
+test_historical_fail2ban_hint_is_not_blindly_applied (test_v02.LynisTests.test_historical_fail2ban_hint_is_not_blindly_applied) ... ok
+test_irreversible_locks_not_exposed (test_v02.LynisTests.test_irreversible_locks_not_exposed) ... ok
+test_new_user_defaults_do_not_modify_existing_shadow (test_v02.LynisTests.test_new_user_defaults_do_not_modify_existing_shadow) ... ok
+test_permissions_snapshot_only_metadata (test_v02.LynisTests.test_permissions_snapshot_only_metadata) ... ok
+test_page_down_and_end_select_expected_items_without_commands (test_v02.NavigationTests.test_page_down_and_end_select_expected_items_without_commands) ... ok
+test_activation_reloads_nm_before_connection_up (test_v02.NetworkTests.test_activation_reloads_nm_before_connection_up) ... ok
+test_bad_addresses_rejected (test_v02.NetworkTests.test_bad_addresses_rejected) ... ok
+test_dhcp_does_not_require_static_values (test_v02.NetworkTests.test_dhcp_does_not_require_static_values) ... ok
+test_ifupdown_custom_hooks_are_not_destroyed (test_v02.NetworkTests.test_ifupdown_custom_hooks_are_not_destroyed) ... ok
+test_ifupdown_include_source_directory_supported (test_v02.NetworkTests.test_ifupdown_include_source_directory_supported) ... ok
+test_ifupdown_preserves_ipv6_and_other_interfaces (test_v02.NetworkTests.test_ifupdown_preserves_ipv6_and_other_interfaces) ... ok
+test_interface_injection_and_loopback_rejected (test_v02.NetworkTests.test_interface_injection_and_loopback_rejected) ... ok
+test_netplan_static_to_dhcp_removes_old_ipv4_without_sequence_merge (test_v02.NetworkTests.test_netplan_static_to_dhcp_removes_old_ipv4_without_sequence_merge) ... ok
+test_networkd_complex_route_not_silently_replaced (test_v02.NetworkTests.test_networkd_complex_route_not_silently_replaced) ... ok
+test_nm_secrets_preserved_but_not_printed (test_v02.NetworkTests.test_nm_secrets_preserved_but_not_printed) ... ok
+test_static_validated_before_changes (test_v02.NetworkTests.test_static_validated_before_changes) ... ok
+test_enter_and_y_confirm (test_v02.PromptTests.test_enter_and_y_confirm) ... ok
+test_invalid_confirmation_is_not_silently_approved (test_v02.PromptTests.test_invalid_confirmation_is_not_silently_approved) ... ok
+test_n_cancels (test_v02.PromptTests.test_n_cancels) ... ok
+test_secret_input_is_hidden (test_v02.PromptTests.test_secret_input_is_hidden) ... ok
+test_empty_package_state_is_not_an_undo_promise (test_v02.RecoveryTests.test_empty_package_state_is_not_an_undo_promise) ... ok
+test_missing_old_deb_refuses_to_claim_complete_undo (test_v02.RecoveryTests.test_missing_old_deb_refuses_to_claim_complete_undo) ... ok
+test_new_packages_diff_and_old_version_diff (test_v02.RecoveryTests.test_new_packages_diff_and_old_version_diff) ... ok
+test_undo_does_not_remove_preexisting_dependency (test_v02.RecoveryTests.test_undo_does_not_remove_preexisting_dependency) ... ok
+test_metadata_mode_restored_without_copying_directory_contents (test_v02.TransactionV02Tests.test_metadata_mode_restored_without_copying_directory_contents) ... 
+────────────────────────────────────────────────────────────────
+Chat / Channel ID ή @public_channel
+Προεπιλογή: -100123
+
+────────────────────────────────────────────────────────────────
+Topic/thread ID (0=χωρίς topic)
+Προεπιλογή: 0
+
+────────────────────────────────────────────────────────────────
+Διάστημα ελέγχου, δευτερόλεπτα
+Προεπιλογή: 60
+
+Προορισμός: -100123 · Server: Test server
+Επιλογές: boot
+Θα εγκατασταθεί timer ανά 60s και θα σταλεί δοκιμαστικό Telegram.
+
+────────────────────────────────────────────────────────────────
+Εφαρμογή εγκατάστασης; [Y/n · Enter=yes]
+
+────────────────────────────────────────────────────────────────
+Language / Γλώσσα: [1] English  [2] Ελληνικά
+Προεπιλογή: 1
+Linux Telegram Alerts v1.2.0
+Δημιουργεί δικό του service/timer. Δεν αλλάζει SSH, firewall ή Fail2Ban.
+
+────────────────────────────────────────────────────────────────
+Όνομα πελάτη / server
+Προεπιλογή: 02e3b4c684fa
+
+────────────────────────────────────────────────────────────────
+Bot Token
+
+────────────────────────────────────────────────────────────────
+Chat / Channel ID ή @public_channel
+
+────────────────────────────────────────────────────────────────
+Topic/thread ID (0=χωρίς topic)
+Προεπιλογή: 0
+
+────────────────────────────────────────────────────────────────
+Διάστημα ελέγχου, δευτερόλεπτα
+Προεπιλογή: 60
+
+Προορισμός: -100123 · Server: Test server
+Επιλογές: boot
+Θα εγκατασταθεί timer ανά 60s και θα σταλεί δοκιμαστικό Telegram.
+
+────────────────────────────────────────────────────────────────
+Εφαρμογή εγκατάστασης; [Y/n · Enter=yes]
+✅ Εγκαταστάθηκε v1.2.0
+Έλεγχος: sudo linux-telegram-alerts status
+Ρυθμίσεις: sudo linux-telegram-alerts configure
+Backup: /tmp/tmpc7pfm0pa/state/backup-20261111-130725-275874
+
+────────────────────────────────────────────────────────────────
+Language / Γλώσσα: [1] English  [2] Ελληνικά
+Προεπιλογή: 1
+
+────────────────────────────────────────────────────────────────
+Language / Γλώσσα: [1] English  [2] Ελληνικά
+Default: 1
+ℹ️ Δεν βρέθηκαν PEM certificates· παραλείπεται ο έλεγχος.
+⚠️ Παράλειψη certs: Δεν βρέθηκαν PEM certificates στα δηλωμένα paths. Συνεχίζουμε.
+⚠️ Skipping docker: docker command not found. Continuing.
+ 1. [x] 🚀 Server boot / boot ID change
+ 2. [ ] 🔐 Successful SSH login
+ 3. [ ] ⛔ Failed SSH attempts (summary)
+ 4. [ ] 🛡️ Failed sudo authentication
+ 5. [ ] 🚫 Fail2Ban: IP banned
+ 6. [ ] 🔓 Fail2Ban: IP unbanned
+ 7. [ ] ⚙️ systemd: service failed / active again
+ 8. [ ] 🧠 RAM: high usage / recovery
+ 9. [ ] 🔄 Swap: high usage / recovery
+10. [ ] 🔥 Load per CPU: high load / recovery
+11. [ ] 💾 Disk: high usage / recovery
+12. [ ] 🗂️ Inodes: high usage / recovery
+13. [ ] 💥 OOM: out of memory / killed process
+14. [ ] 🚨 Critical kernel errors (summary)
+15. [ ] 🌐 IPv4 / link / default route changes
+16. [-] 🐳 Containers: state / health / added / removed [docker command not found]
+17. [ ] 🔒 Local PEM certificate expiry
+18. [ ] 📜 Certbot: renewal success / failure from journal
+19. [ ] 🧩 Linux MD RAID: degraded / recovery
+20. [ ] 📝 Changes to passwd / group / sudoers / SSH config
+21. [ ] 📊 Daily health report
+22. [ ] 📦 Notifications from your own scripts (enqueue)
+ 1. [x] 🚀 Server boot / boot ID change
+ 2. [ ] 🔐 Successful SSH login
+ 3. [ ] ⛔ Failed SSH attempts (summary)
+ 4. [ ] 🛡️ Failed sudo authentication
+ 5. [ ] 🚫 Fail2Ban: IP banned
+ 6. [ ] 🔓 Fail2Ban: IP unbanned
+ 7. [ ] ⚙️ systemd: service failed / active again
+ 8. [ ] 🧠 RAM: high usage / recovery
+ 9. [ ] 🔄 Swap: high usage / recovery
+10. [ ] 🔥 Load per CPU: high load / recovery
+11. [ ] 💾 Disk: high usage / recovery
+12. [ ] 🗂️ Inodes: high usage / recovery
+13. [ ] 💥 OOM: out of memory / killed process
+14. [ ] 🚨 Critical kernel errors (summary)
+15. [ ] 🌐 IPv4 / link / default route changes
+16. [-] 🐳 Containers: state / health / added / removed [docker command not found]
+17. [ ] 🔒 Local PEM certificate expiry
+18. [ ] 📜 Certbot: renewal success / failure from journal
+19. [ ] 🧩 Linux MD RAID: degraded / recovery
+20. [ ] 📝 Changes to passwd / group / sudoers / SSH config
+21. [ ] 📊 Daily health report
+22. [ ] 📦 Notifications from your own scripts (enqueue)
+Aegis Linux Hardener 0.7.0
+System info, security hardening and Telegram alerts in one tool.
+Installs program files in /opt/aegis-linux-hardener and the /usr/local/bin/aegis launcher.
+No firewall, SSH, optional packages or Telegram configuration is changed by this bootstrap.
+Program undo ID: 20261111-130725-58235286
+Recovery command: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpj3mtyevc/state/backups/20261111-130725-58235286/runner/aegis.py rollback 20261111-130725-58235286
+Installed. Start with: aegis
+Read-only CLI: aegis info --json | aegis monitor --sort cpu | aegis audit
+Portable mode: no /opt installation or aegis launcher is created.
+
+Continue? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+
+Continue? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+
+Continue? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+
+Continue? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+
+Continue? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+Continue? [Y/n · Enter=yes] — Choose one of: y / n
+
+Continue? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+
+Secret
+
+────────────────────────────────────────────────────────────────────
+metadata
+────────────────────────────────────────────────────────────────────ok
+test_network_activation_is_detached_from_parent_ssh (test_v02.TransactionV02Tests.test_network_activation_is_detached_from_parent_ssh) ... ok
+test_portable_recovery_runner_survives_source_removal (test_v02.TransactionV02Tests.test_portable_recovery_runner_survives_source_removal) ... ok
+test_architecture_checked (test_v03.ArtifactsV03.test_architecture_checked) ... ok
+test_checksum_mismatch_fails (test_v03.ArtifactsV03.test_checksum_mismatch_fails) ... ok
+test_manifest_checksum_name_matching (test_v03.ArtifactsV03.test_manifest_checksum_name_matching) ... ok
+test_matching_executable_only (test_v03.ArtifactsV03.test_matching_executable_only) ... ok
+test_path_escape_rejected (test_v03.ArtifactsV03.test_path_escape_rejected) ... ok
+test_patterns_never_pick_windows_or_wrong_arch (test_v03.ArtifactsV03.test_patterns_never_pick_windows_or_wrong_arch) ... ok
+test_python_requirements_not_system_python_replacement (test_v03.ArtifactsV03.test_python_requirements_not_system_python_replacement) ... ok
+test_symlink_not_installed_as_executable (test_v03.ArtifactsV03.test_symlink_not_installed_as_executable) ... ok
+test_all_apps_have_meaningful_information (test_v03.CatalogV03.test_all_apps_have_meaningful_information) ... ok
+test_ambiguous_or_windows_app_never_installs_wrong_package (test_v03.CatalogV03.test_ambiguous_or_windows_app_never_installs_wrong_package) ... ok
+test_bulk_inventory_not_query_per_application (test_v03.CatalogV03.test_bulk_inventory_not_query_per_application) ... ok
+test_explicit_aliases (test_v03.CatalogV03.test_explicit_aliases) ... ok
+test_missing_hddtemp_does_not_add_old_repository (test_v03.CatalogV03.test_missing_hddtemp_does_not_add_old_repository) ... ok
+test_nmtui_new_install_no_daemon_start (test_v03.CatalogV03.test_nmtui_new_install_no_daemon_start) ... ok
+test_requested_entries_and_order (test_v03.CatalogV03.test_requested_entries_and_order) ... ok
+test_source_only_tools_are_explicit (test_v03.CatalogV03.test_source_only_tools_are_explicit) ... ok
+test_defense_install_stays_inactive_with_backup (test_v03.DefenseV03.test_defense_install_stays_inactive_with_backup) ... ok
+test_existing_active_external_defense_not_modified (test_v03.DefenseV03.test_existing_active_external_defense_not_modified) ... ok
+test_dashboard_formatting_never_executes_commands (test_v03.PanelsV03.test_dashboard_formatting_never_executes_commands) ... ok
+test_meter_clamps_and_has_severity (test_v03.PanelsV03.test_meter_clamps_and_has_severity) ... ok
+test_interface_shell_injection_rejected (test_v04.LaunchV04.test_interface_shell_injection_rejected) ... ok
+test_ncdu_read_only (test_v04.LaunchV04.test_ncdu_read_only) ... ok
+test_nmtui_routes_to_protected_flow (test_v04.LaunchV04.test_nmtui_routes_to_protected_flow) ... ok
+test_tcpdump_limited_and_explicit_interface (test_v04.LaunchV04.test_tcpdump_limited_and_explicit_interface) ... ok
+test_tmate_and_ngrok_open_help_only (test_v04.LaunchV04.test_tmate_and_ngrok_open_help_only) ... ok
+test_user_tool_drops_root (test_v04.LaunchV04.test_user_tool_drops_root) ... ok
+test_attachment_uses_exact_snapshot_and_topic (test_v04.LogsV04.test_attachment_uses_exact_snapshot_and_topic) ... ok
+test_ccze_raw_ansi_and_no_lookups (test_v04.LogsV04.test_ccze_raw_ansi_and_no_lookups) ... ok
+test_ccze_registered_once (test_v04.LogsV04.test_ccze_registered_once) ... ok
+test_container_stderr_is_log_content (test_v04.LogsV04.test_container_stderr_is_log_content) ... ok
+test_control_sequences_and_known_secrets_masked (test_v04.LogsV04.test_control_sequences_and_known_secrets_masked) ... ok
+test_custom_file_cannot_read_etc (test_v04.LogsV04.test_custom_file_cannot_read_etc) ... ok
+test_custom_file_symlink_outside_log_root_rejected (test_v04.LogsV04.test_custom_file_symlink_outside_log_root_rejected) ... ok
+test_export_private_and_original_user_owned (test_v04.LogsV04.test_export_private_and_original_user_owned) ... ok
+test_export_refuses_system_configuration (test_v04.LogsV04.test_export_refuses_system_configuration) ... ok
+test_filename_cannot_inject_multipart_headers (test_v04.LogsV04.test_filename_cannot_inject_multipart_headers) ... ok
+test_invalid_category_and_query_never_run (test_v04.LogsV04.test_invalid_category_and_query_never_run) ... ok
+test_journal_unit_and_limit_are_separate_arguments (test_v04.LogsV04.test_journal_unit_and_limit_are_separate_arguments) ... ok
+test_missing_ccze_has_plain_fallback (test_v04.LogsV04.test_missing_ccze_has_plain_fallback) ... ok
+test_network_error_does_not_leak_token_or_retry (test_v04.LogsV04.test_network_error_does_not_leak_token_or_retry) ... ok
+test_telegram_success_no_real_network (test_v04.LogsV04.test_telegram_success_no_real_network) ... ok
+test_help_all_reads_complete_packaged_readme (test_v04.MenusV04.test_help_all_reads_complete_packaged_readme) ... ok
+test_help_last_and_security_managers_nested (test_v04.MenusV04.test_help_last_and_security_managers_nested) ... ok
+test_installed_app_offers_open_not_install (test_v04.MenusV04.test_installed_app_offers_open_not_install) ... ok
+test_network_installed_status_uses_live_detection (test_v04.MenusV04.test_network_installed_status_uses_live_detection) ... ok
+test_action_resumes_exactly_once_after_success (test_v041.DependenciesV041.test_action_resumes_exactly_once_after_success) ... ok
+test_cancel_missing_dependency_stops_original_action (test_v041.DependenciesV041.test_cancel_missing_dependency_stops_original_action) ... ok
+test_declined_ui_prepare_does_not_ask_policy_questions (test_v041.DependenciesV041.test_declined_ui_prepare_does_not_ask_policy_questions) ... ok
+test_important_diagnostics_mapped (test_v041.DependenciesV041.test_important_diagnostics_mapped) ... ok
+test_installed_but_still_missing_does_not_retry_forever (test_v041.DependenciesV041.test_installed_but_still_missing_does_not_retry_forever) ... ok
+test_interactive_cancellation_prevents_plan_construction (test_v041.DependenciesV041.test_interactive_cancellation_prevents_plan_construction) ... ok
+test_optional_ccze_cancellation_keeps_plain_logs_available (test_v041.DependenciesV041.test_optional_ccze_cancellation_keeps_plain_logs_available) ... ok
+test_password_quality_q_cancels_cleanly_after_dependency_step (test_v041.DependenciesV041.test_password_quality_q_cancels_cleanly_after_dependency_step) ... ok
+test_password_quality_uses_managed_pam_profile (test_v041.DependenciesV041.test_password_quality_uses_managed_pam_profile) ... ok
+test_present_dependency_does_not_prompt_or_install (test_v041.DependenciesV041.test_present_dependency_does_not_prompt_or_install) ... ok
+test_success_rechecks_and_preserves_original_request (test_v041.DependenciesV041.test_success_rechecks_and_preserves_original_request) ... ok
+test_unknown_requests_cannot_supply_install_commands (test_v041.DependenciesV041.test_unknown_requests_cannot_supply_install_commands) ... ok
+test_active_user_cannot_be_deleted (test_v05.AccountsV05.test_active_user_cannot_be_deleted) ... ok
+test_add_group_uses_append_not_replace (test_v05.AccountsV05.test_add_group_uses_append_not_replace) ... ok
+test_current_operator_cannot_be_disabled (test_v05.AccountsV05.test_current_operator_cannot_be_disabled) ... ok
+test_database_locks_are_released (test_v05.AccountsV05.test_database_locks_are_released) ... ok
+test_delete_keeps_home_and_requires_no_processes (test_v05.AccountsV05.test_delete_keeps_home_and_requires_no_processes) ... ok
+test_newer_target_password_change_blocks_undo (test_v05.AccountsV05.test_newer_target_password_change_blocks_undo) ... ok
+test_permission_plan_is_nonrecursive_and_snapshots_acl (test_v05.AccountsV05.test_permission_plan_is_nonrecursive_and_snapshots_acl) ... ok
+test_public_key_rejects_private_or_multiline_text (test_v05.AccountsV05.test_public_key_rejects_private_or_multiline_text) ... ok
+test_scoped_account_restore_preserves_other_users_and_subuid_ranges (test_v05.AccountsV05.test_scoped_account_restore_preserves_other_users_and_subuid_ranges) ... ok
+test_suid_mode_rejected (test_v05.AccountsV05.test_suid_mode_rejected) ... ok
+test_ambiguous_manager_never_falls_back_to_resolver_file (test_v05.NameConfigV05.test_ambiguous_manager_never_falls_back_to_resolver_file) ... ok
+test_dns_reapply_never_activates_a_different_nm_profile (test_v05.NameConfigV05.test_dns_reapply_never_activates_a_different_nm_profile) ... ok
+test_hosts_add_preserves_comments_and_core_lines (test_v05.NameConfigV05.test_hosts_add_preserves_comments_and_core_lines) ... ok
+test_hosts_core_identity_deletion_refused (test_v05.NameConfigV05.test_hosts_core_identity_deletion_refused) ... ok
+test_hosts_injection_rejected (test_v05.NameConfigV05.test_hosts_injection_rejected) ... ok
+test_hosts_stale_selection_refused (test_v05.NameConfigV05.test_hosts_stale_selection_refused) ... ok
+test_networkd_dns_keeps_addresses_and_routes (test_v05.NameConfigV05.test_networkd_dns_keeps_addresses_and_routes) ... ok
+test_nm_dns_only_preserves_address_gateway_and_secrets (test_v05.NameConfigV05.test_nm_dns_only_preserves_address_gateway_and_secrets) ... ok
+test_acl_backup_and_restore_use_exact_private_snapshot (test_v05.RecoveryV05.test_acl_backup_and_restore_use_exact_private_snapshot) ... ok
+test_metadata_restore_refuses_replaced_object (test_v05.RecoveryV05.test_metadata_restore_refuses_replaced_object) ... ok
+test_scoped_account_expected_state_is_saved_after_apply (test_v05.RecoveryV05.test_scoped_account_expected_state_is_saved_after_apply) ... ok
+test_credential_snapshot_contains_only_requested_user (test_v05.SharesV05.test_credential_snapshot_contains_only_requested_user) ... ok
+test_credentials_snapshot_failure_is_not_treated_as_missing_user (test_v05.SharesV05.test_credentials_snapshot_failure_is_not_treated_as_missing_user) ... ok
+test_external_share_edit_refused (test_v05.SharesV05.test_external_share_edit_refused) ... ok
+test_inherited_readonly_and_guest_are_reported (test_v05.SharesV05.test_inherited_readonly_and_guest_are_reported) ... ok
+test_samba_install_inactive_no_firewall (test_v05.SharesV05.test_samba_install_inactive_no_firewall) ... ok
+test_share_create_authenticated_subnet_scoped_data_not_modified (test_v05.SharesV05.test_share_create_authenticated_subnet_scoped_data_not_modified) ... ok
+test_active_networkmanager_removal_refused (test_v05.UninstallV05.test_active_networkmanager_removal_refused) ... ok
+test_apt_remove_is_not_purge_or_autoremove (test_v05.UninstallV05.test_apt_remove_is_not_purge_or_autoremove) ... ok
+test_collateral_package_removal_refused (test_v05.UninstallV05.test_collateral_package_removal_refused) ... ok
+test_monitor_catalog_contains_all_relevant_tools (test_v05.UninstallV05.test_monitor_catalog_contains_all_relevant_tools) ... ok
+test_new_menu_hierarchy (test_v05.UninstallV05.test_new_menu_hierarchy) ... ok
+test_running_docker_workloads_block_uninstall (test_v05.UninstallV05.test_running_docker_workloads_block_uninstall) ... ok
+test_compilation_as_root_uses_regular_user (test_v06.BuildV06.test_compilation_as_root_uses_regular_user) ... ok
+test_source_checksum_mismatch_rejected (test_v06.BuildV06.test_source_checksum_mismatch_rejected) ... ok
+test_source_links_rejected (test_v06.BuildV06.test_source_links_rejected) ... ok
+test_source_path_escape_rejected (test_v06.BuildV06.test_source_path_escape_rejected) ... ok
+test_source_requires_lockfile (test_v06.BuildV06.test_source_requires_lockfile) ... ok
+test_valid_source_extracts_only_regular_files (test_v06.BuildV06.test_valid_source_extracts_only_regular_files) ... ok
+test_all_apps_remains_available_beside_categories (test_v06.CatalogV06.test_all_apps_remains_available_beside_categories) ... ok
+test_every_entry_has_exactly_one_category (test_v06.CatalogV06.test_every_entry_has_exactly_one_category) ... ok
+test_netscanner_missing_apt_uses_known_source_recipe (test_v06.CatalogV06.test_netscanner_missing_apt_uses_known_source_recipe) ... ok
+test_netscanner_source_route_and_pnana_guidance (test_v06.CatalogV06.test_netscanner_source_route_and_pnana_guidance) ... ok
+test_unavailable_entry_does_not_offer_failed_install_button (test_v06.CatalogV06.test_unavailable_entry_does_not_offer_failed_install_button) ... ok
+test_hostname_change_preserves_loopback_and_unrelated_aliases (test_v06.HostnameV06.test_hostname_change_preserves_loopback_and_unrelated_aliases) ... ok
+test_hosts_update_can_be_declined (test_v06.HostnameV06.test_hosts_update_can_be_declined) ... ok
+test_invalid_hostnames_never_build_commands (test_v06.HostnameV06.test_invalid_hostnames_never_build_commands) ... ok
+test_cancelled_wizard_reenters_same_parent (test_v06.PromptsV06.test_cancelled_wizard_reenters_same_parent) ... ok
+test_ctrl_c_becomes_navigation_cancel (test_v06.PromptsV06.test_ctrl_c_becomes_navigation_cancel) ... ok
+test_default_retained_for_noninteractive_input (test_v06.PromptsV06.test_default_retained_for_noninteractive_input) ... ok
+test_installed_marker_after_name (test_v06.PromptsV06.test_installed_marker_after_name) ... ok
+test_known_options_passed_to_arrow_editor (test_v06.PromptsV06.test_known_options_passed_to_arrow_editor) ... ok
+test_theme_palettes_have_status_and_selection_colors (test_v06.PromptsV06.test_theme_palettes_have_status_and_selection_colors) ... ok
+test_typed_back_cancels_free_text (test_v06.PromptsV06.test_typed_back_cancels_free_text) ... ok
+test_comment_blank_and_private_material_are_not_key_rows (test_v07.PublicKeys.test_comment_blank_and_private_material_are_not_key_rows) ... ok
+test_exact_row_removal_preserves_other_rows_and_crlf (test_v07.PublicKeys.test_exact_row_removal_preserves_other_rows_and_crlf) ... ok
+test_fingerprint_ignores_options_and_comment (test_v07.PublicKeys.test_fingerprint_ignores_options_and_comment) ... ok
+test_mismatched_expected_content_rejected (test_v07.PublicKeys.test_mismatched_expected_content_rejected) ... ok
+test_newer_key_file_is_not_overwritten (test_v07.PublicKeys.test_newer_key_file_is_not_overwritten) ... ok
+test_nonkey_row_cannot_be_removed (test_v07.PublicKeys.test_nonkey_row_cannot_be_removed) ... ok
+test_restricted_options_are_parsed_without_losing_comment (test_v07.PublicKeys.test_restricted_options_are_parsed_without_losing_comment) ... ok
+test_symlink_and_unknown_filename_rejected (test_v07.PublicKeys.test_symlink_and_unknown_filename_rejected) ... ok
+test_checksum_mismatch_and_marker_mismatch_reject (test_v07.Updates.test_checksum_mismatch_and_marker_mismatch_reject) ... ok
+test_confirmation_aliases_and_invalid_choice (test_v07.Updates.test_confirmation_aliases_and_invalid_choice) ... ok
+test_corrupt_installer_never_executes (test_v07.Updates.test_corrupt_installer_never_executes) ... ok
+test_installer_cancel_is_not_reported_as_updated (test_v07.Updates.test_installer_cancel_is_not_reported_as_updated) ... ok
+test_metadata_rejects_external_installer_and_invalid_version (test_v07.Updates.test_metadata_rejects_external_installer_and_invalid_version) ... ok
+test_no_code_executes_before_approval (test_v07.Updates.test_no_code_executes_before_approval) ... ok
+test_no_downgrade_or_reinstall (test_v07.Updates.test_no_downgrade_or_reinstall) ... ok
+test_oversized_download_rejected (test_v07.Updates.test_oversized_download_rejected) ... ok
+test_redirect_and_unapproved_download_are_rejected (test_v07.Updates.test_redirect_and_unapproved_download_are_rejected) ... ok
+test_verified_installer_check_then_install_and_temp_cleanup (test_v07.Updates.test_verified_installer_check_then_install_and_temp_cleanup) ... ok
+
+----------------------------------------------------------------------
+Ran 226 tests in 0.213s
+
+OK
+
+metadata
+
+
+Managed file changes:
+/tmp/tmp1jjzeb7b/home permissions → 0o750
+
+Commands:
+
+Apply this plan? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+Backup/change ID: 20261111-130725-2bc46de6
+Applied. Managed-file backup: /tmp/tmp1jjzeb7b/state/backups/20261111-130725-2bc46de6
+
+────────────────────────────────────────────────────────────────────
+network
+────────────────────────────────────────────────────────────────────
+network
+
+
+Managed file changes:
+/tmp/tmpoic61v6r/network.conf
+    new
+
+Commands:
+  NEVER-RUN-IN-SSH
+
+Automatic rollback is armed for 180 seconds BEFORE changes.
+Open a SECOND SSH connection and run the displayed confirm command.
+
+Apply this plan? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+Backup/change ID: 20261111-130725-55a24c12
+Confirm in a NEW connection: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpoic61v6r/state/backups/20261111-130725-55a24c12/runner/aegis.py confirm 20261111-130725-55a24c12
+
+Open a NEW SSH connection (use the NEW IP after a network change), then run:
+sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpoic61v6r/state/backups/20261111-130725-55a24c12/runner/aegis.py confirm 20261111-130725-55a24c12
+If not confirmed, the managed files/rules will be restored after 180 seconds.
