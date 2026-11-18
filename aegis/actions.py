@@ -28,6 +28,7 @@ class Plan:
     title: str
     details: list = dataclasses.field(default_factory=list)
     writes: dict = dataclasses.field(default_factory=dict)
+    write_summaries: dict = dataclasses.field(default_factory=dict)
     # commands before/after file writes; no shell strings / μόνο argv lists.
     before: list = dataclasses.field(default_factory=list)
     validate: list = dataclasses.field(default_factory=list)
@@ -56,6 +57,8 @@ class Plan:
         lines += ['', 'Managed file changes:']
         for name, content in self.writes.items():
             lines.append(name)
+            if name in self.write_summaries:
+                lines.append('    '+self.write_summaries[name]);continue
             lines.extend('    ' + x for x in ('<content hidden: private configuration>' if self.secrets else (content if isinstance(content, str) else '<binary file>')).splitlines())
         for name in self.late_writes:
             lines.append(name + ' (configured after package installation, before service start)')

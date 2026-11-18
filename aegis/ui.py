@@ -8,6 +8,19 @@ from . import VERSION, TITLE, TAGLINE, system, console, themes
 
 
 GREEK = {
+ 'GeoIP SSH / Zone Feed':'GeoIP SSH / Zone Feed',
+ 'Status / policy':'Κατάσταση / πολιτική',
+ 'Select countries / continents':'Επιλογή χωρών / ηπείρων',
+ 'Update IP lists now':'Ενημέρωση λιστών IP τώρα',
+ 'Country / continent lists':'Λίστες χωρών / ηπείρων',
+ 'View country CIDRs':'Προβολή CIDR ανά χώρα',
+ 'List source':'Πηγή λιστών',
+ 'Install nftables command':'Εγκατάσταση εργαλείου nftables',
+ 'Disable GeoIP SSH policy':'Απενεργοποίηση πολιτικής GeoIP SSH',
+ 'Inspect runtime rules / counters':'Προβολή ενεργών κανόνων / μετρητών',
+ 'Allowed continents':'Επιτρεπόμενες ήπειροι',
+ 'Allowed countries':'Επιτρεπόμενες χώρες',
+
  'App Installer — categories':'Εγκατάσταση εφαρμογών — κατηγορίες',
  'Search applications':'Αναζήτηση εφαρμογών', 'Manage App Installer list':'Διαχείριση λίστας εφαρμογών',
  'Add APT application':'Προσθήκη εφαρμογής APT', 'Remove entry / hide built-in':'Αφαίρεση / απόκρυψη καταχώρισης',

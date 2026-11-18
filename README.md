@@ -1,7 +1,7 @@
 # Aegis Linux Hardener
 
 <!-- aegis:badges -->
-![Version](https://img.shields.io/badge/version-0.8.0-0078D4)
+![Version](https://img.shields.io/badge/version-0.9.0-0078D4)
 ![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)
 ![Platform](https://img.shields.io/badge/platform-Debian%20%7C%20Ubuntu-E95420?logo=linux&logoColor=white)
 ![Interface](https://img.shields.io/badge/interface-TUI-5E81AC)
@@ -11,7 +11,7 @@
 
 > System info, security hardening and Telegram alerts in one tool.
 
-**Version 0.8.0** · Debian-based servers and desktops
+**Version 0.9.0** · Debian-based servers and desktops
 
 Aegis Linux Hardener is a terminal administration toolkit for Debian and Ubuntu. It brings system monitoring, selected security controls, network configuration, local account management, Samba shares and Telegram notifications into one interface.
 
@@ -37,17 +37,17 @@ Application availability depends on the distribution, configured repositories, a
 
 ### Install from a release ZIP
 
-Copy `aegis-linux-hardener-v0.8.0.zip` to the Linux machine. For example, from Windows PowerShell:
+Copy `aegis-linux-hardener-v0.9.0.zip` to the Linux machine. For example, from Windows PowerShell:
 
 ```powershell
-scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.8.0.zip" USER@SERVER_IP:~/
+scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.9.0.zip" USER@SERVER_IP:~/
 ```
 
 Replace `USER` and `SERVER_IP` with the account and address of the target machine. Then connect to Linux and run:
 
 ```bash
 cd ~
-unzip -o aegis-linux-hardener-v0.8.0.zip
+unzip -o aegis-linux-hardener-v0.9.0.zip
 cd ~/aegis-linux-hardener
 sudo bash ./install-aegis.sh --install
 ```
@@ -150,6 +150,26 @@ Security controls are applied individually after review. There is no automatic w
 - **PortSentry, knockd and Shorewall:** inactive installation, inspection and configuration guidance. Installation does not deploy a blocking policy, port-knocking access policy or replacement firewall.
 
 Supported missing prerequisites are offered at the selected action. Installation and the subsequent configuration change remain separate reviewed operations. Declining or failing prerequisite installation stops the dependent action.
+
+## GeoIP SSH / Zone Feed
+
+Open **Security & Hardening → Fail2Ban Manager → GeoIP SSH / Zone Feed**. This module filters new connections to the host's selected SSH TCP ports by allocation country. It works alongside Fail2Ban; it does not add allowed countries to `ignoreip` or override bans and other firewall drops.
+
+1. Select **Update IP lists now** to download and validate the country data. A download does not enable filtering.
+2. Open **Select countries / continents**. Use Space to tick entries, type to search, Page Up/Down to move, Enter to save, or Esc to cancel. Countries inherited from a selected continent remain checked; selections are combined as a union. Country names use English names and ISO codes.
+3. Review all detected SSH ports and the trusted management IP/VPN exceptions. The observed SSH client IP is proposed as an exception. An active SSH session cannot apply a policy that excludes its source address.
+4. Review and approve the plan. From SSH, open a **new connection** and confirm the change within **180 seconds** through Reports & History or the displayed confirmation command. An existing session alone does not verify new access.
+5. Use **Status / policy**, **Inspect runtime rules / counters** and **Service logs** to inspect the result. **Disable GeoIP SSH policy** removes only this module's table through a reviewed, recoverable action.
+
+**Two nftables interval sets and five fixed rules** handle IPv4 and IPv6. Thousands of CIDRs are elements in sets, not individual firewall rules. Duplicate and overlapping ranges are merged. The independent table is `inet aegis_geoip_ssh`; Aegis never flushes the whole ruleset. Existing established sessions and loopback traffic are retained. Other firewall policies still determine whether an allowed connection can reach SSH.
+
+The default collector uses the five RIR delegated-allocation sources, with RIPEstat and optional NirSoft enrichment for Greece. Alternatively, select **List source → Karanik Zone Feed server** and enter a trusted base URL, such as `https://FEED_SERVER`. Compatible feeds must provide `/feeds/gr.zone`, `/feeds/gr-v6.zone` and the corresponding paths for every selected country. Use HTTPS where possible; plain HTTP does not authenticate feed contents. No feed web server is installed on the protected machine, and an existing feed service is left untouched.
+
+Updates are **manual and reviewed**. A failed or invalid download keeps the previous cache and policy. While filtering is enabled, a refresh uses a checked atomic table replacement and timed rollback; a drop of more than 50% in selected address coverage requires an additional confirmation. Empty territories can be included in a continent, but an entirely empty selection is refused. Missing IPv6 entries do not create an IPv6 SSH bypass. Changing feed sources requires disabling the policy first.
+
+A separate `aegis-geoip-ssh.service` reloads the cached policy at boot without requiring network downloads. It does not enable the distribution's `nftables.service`. Runtime snapshots and managed-file backups support scoped Undo. Counters reset when a table is replaced. Disable GeoIP before uninstalling Aegis; program removal is blocked while the policy is configured as enabled.
+
+Allocation country is an approximation, not proof of physical location. VPNs and proxies are evaluated by the source IP visible to the server. This policy covers host INPUT traffic; forwarded/container SSH needs separate controls. External firewall tools that flush the ruleset can remove the policy; check status and reapply after such changes. Newly added SSH ports require updating the selected ports. See [technical notes and verification](docs/geoip-ssh.md).
 
 ## Network configuration
 
@@ -329,7 +349,7 @@ aegis --language en
 
 ## Validation and scope
 
-The release includes **250 automated tests**, terminal checks for dialogs, live search and delayed input after dashboard navigation, and installer integrity checks. An isolated netscanner source compilation is documented in [build verification](docs/netscanner-build-verification.md).
+The release includes **280 automated tests**, terminal checks for dialogs, live search and delayed input after dashboard navigation, and installer integrity checks. An isolated netscanner source compilation is documented in [build verification](docs/netscanner-build-verification.md).
 
 Tests for system mutations, package/service integrations and rollback behavior use mocked components; this is not a complete live Debian/Ubuntu compatibility matrix. Validate operational changes on a disposable VM with console access before production deployment.
 
@@ -338,6 +358,7 @@ python3 -m unittest discover -s tests -v
 python3 tests/pty_dialogs.py
 python3 tests/pty_timeout.py
 python3 tests/pty_search.py
+python3 tests/pty_geoip.py
 bash install-aegis.sh --check
 ```
 

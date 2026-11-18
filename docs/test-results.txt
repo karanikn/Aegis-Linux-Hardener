@@ -61,7 +61,7 @@ test
 
 
 Managed file changes:
-/tmp/tmpiwcnqg6c/config
+/tmp/tmpg5hfs8qf/config
     new
 
 Commands:
@@ -69,8 +69,8 @@ Commands:
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261111-153831-6091b181
-Applied. Managed-file backup: /tmp/tmpiwcnqg6c/state/backups/20261111-153831-6091b181
+Backup/change ID: 20261118-175113-b96c08a7
+Applied. Managed-file backup: /tmp/tmpg5hfs8qf/state/backups/20261118-175113-b96c08a7
 
 ────────────────────────────────────────────────────────────────────
 test
@@ -79,7 +79,7 @@ test
 
 
 Managed file changes:
-/tmp/tmp_wut0dbz/config
+/tmp/tmpdjfo275h/config
     new
 
 Commands:
@@ -110,7 +110,7 @@ test
 
 
 Managed file changes:
-/tmp/tmpi4hcjxwj/config
+/tmp/tmpl0udxzwi/config
     new
 
 Commands:
@@ -119,7 +119,7 @@ Commands:
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261111-153831-d66255d7
+Backup/change ID: 20261118-175113-87a72ae2
 
 ────────────────────────────────────────────────────────────────────
 critical
@@ -145,7 +145,7 @@ new
 
 
 Managed file changes:
-/tmp/tmppa0zw3ht/new-file
+/tmp/tmpgr5qkch6/new-file
     content
 
 Commands:
@@ -153,8 +153,8 @@ Commands:
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261111-153831-8eb2656c
-Applied. Managed-file backup: /tmp/tmppa0zw3ht/state/backups/20261111-153831-8eb2656c
+Backup/change ID: 20261118-175113-c9dd8b2b
+Applied. Managed-file backup: /tmp/tmpgr5qkch6/state/backups/20261118-175113-c9dd8b2b
 
 Verify access works in this NEW session. Keep the change? [Y/n · Enter=yes]
 Default: y
@@ -168,7 +168,7 @@ test
 
 
 Managed file changes:
-/tmp/tmpnb00rt67/config
+/tmp/tmp1rmm7lpv/config
     new
 
 Commands:
@@ -184,7 +184,7 @@ package
 
 
 Managed file changes:
-/tmp/tmpo1c5fip2/config (configured after package installation, before service start)
+/tmp/tmpdjk8d5k7/config (configured after package installation, before service start)
 
 Commands:
   fake-install
@@ -193,8 +193,8 @@ Commands:
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261111-153831-3db6024d
-Applied. Managed-file backup: /tmp/tmpo1c5fip2/state/backups/20261111-153831-3db6024d
+Backup/change ID: 20261118-175113-89a68ee3
+Applied. Managed-file backup: /tmp/tmpdjk8d5k7/state/backups/20261118-175113-89a68ee3
 
 ────────────────────────────────────────────────────────────────────
 critical
@@ -203,7 +203,7 @@ critical
 
 
 Managed file changes:
-/tmp/tmptrew5hq0/config
+/tmp/tmpwm63nh_n/config
     new
 
 Commands:
@@ -214,15 +214,15 @@ Open a SECOND SSH connection and run the displayed confirm command.
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261111-153831-7b83e93e
-Confirm in a NEW connection: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmptrew5hq0/state/backups/20261111-153831-7b83e93e/runner/aegis.py confirm 20261111-153831-7b83e93e
+Backup/change ID: 20261118-175113-99570f8b
+Confirm in a NEW connection: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpwm63nh_n/state/backups/20261118-175113-99570f8b/runner/aegis.py confirm 20261118-175113-99570f8b
 
 Open a NEW SSH connection (use the NEW IP after a network change), then run:
-sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmptrew5hq0/state/backups/20261111-153831-7b83e93e/runner/aegis.py confirm 20261111-153831-7b83e93e
+sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpwm63nh_n/state/backups/20261118-175113-99570f8b/runner/aegis.py confirm 20261118-175113-99570f8b
 If not confirmed, the managed files/rules will be restored after 180 seconds.
 
-Aegis Linux Hardener v0.8.0
-cddb31a7334f | Debian GNU/Linux 13 (trixie) | x86_64 | 9 CPU
+Aegis Linux Hardener v0.9.0
+ed987e95b43b | Debian GNU/Linux 13 (trixie) | x86_64 | 9 CPU
 test
 1. Test — Read only
 
@@ -252,6 +252,36 @@ test_language_choice_default_and_greek (test_alerts.NewBehaviorTests.test_langua
 test_missing_certificates_does_not_queue_problem (test_alerts.NewBehaviorTests.test_missing_certificates_does_not_queue_problem) ... ok
 test_missing_docker_skips_and_continues (test_alerts.NewBehaviorTests.test_missing_docker_skips_and_continues) ... ok
 test_unavailable_checkbox_cannot_be_selected (test_alerts.NewBehaviorTests.test_unavailable_checkbox_cannot_be_selected) ... ok
+test_bad_custom_list_is_not_silently_accepted (test_geoip.Data.test_bad_custom_list_is_not_silently_accepted) ... ok
+test_bad_port_input_rejected (test_geoip.Data.test_bad_port_input_rejected) ... ok
+test_continents_cover_every_country_once (test_geoip.Data.test_continents_cover_every_country_once) ... ok
+test_default_private_multicast_and_overbroad_prefixes_rejected (test_geoip.Data.test_default_private_multicast_and_overbroad_prefixes_rejected) ... ok
+test_download_rejects_protocol_redirect_and_size (test_geoip.Data.test_download_rejects_protocol_redirect_and_size) ... ok
+test_empty_territory_does_not_break_continent_selection (test_geoip.Data.test_empty_territory_does_not_break_continent_selection) ... ok
+test_expansion_is_union_not_overlapping_duplicate_rules (test_geoip.Data.test_expansion_is_union_not_overlapping_duplicate_rules) ... ok
+test_invalid_and_empty_rir_fails (test_geoip.Data.test_invalid_and_empty_rir_fails) ... ok
+test_invalid_zone_feed_urls_rejected (test_geoip.Data.test_invalid_zone_feed_urls_rejected) ... ok
+test_normalized_cache_remains_valid_after_adjacent_large_merges (test_geoip.Data.test_normalized_cache_remains_valid_after_adjacent_large_merges) ... ok
+test_provider_paths_and_dual_stack (test_geoip.Data.test_provider_paths_and_dual_stack) ... ok
+test_ripe_api_ranges_and_families (test_geoip.Data.test_ripe_api_ranges_and_families) ... ok
+test_rir_range_is_summarized_and_ipv6_supported (test_geoip.Data.test_rir_range_is_summarized_and_ipv6_supported) ... ok
+test_selection_rejects_missing_data_and_wrong_source (test_geoip.Data.test_selection_rejects_missing_data_and_wrong_source) ... ok
+test_shrink_guard_compares_address_coverage (test_geoip.Data.test_shrink_guard_compares_address_coverage) ... ok
+test_all_detected_ssh_ports_must_be_covered (test_geoip.Plans.test_all_detected_ssh_ports_must_be_covered) ... ok
+test_cache_update_does_not_touch_firewall_when_disabled (test_geoip.Plans.test_cache_update_does_not_touch_firewall_when_disabled) ... ok
+test_disable_only_removes_own_table_and_retains_rollback (test_geoip.Plans.test_disable_only_removes_own_table_and_retains_rollback) ... ok
+test_enable_is_timed_backed_up_and_has_no_ruleset_flush (test_geoip.Plans.test_enable_is_timed_backed_up_and_has_no_ruleset_flush) ... ok
+test_guard_rejects_concurrent_file_edits (test_geoip.Plans.test_guard_rejects_concurrent_file_edits) ... ok
+test_management_source_cannot_be_locked_out (test_geoip.Plans.test_management_source_cannot_be_locked_out) ... ok
+test_restore_replays_only_owned_runtime_snapshot (test_geoip.Plans.test_restore_replays_only_owned_runtime_snapshot) ... ok
+test_snapshot_captures_table_and_boot_state (test_geoip.Plans.test_snapshot_captures_table_and_boot_state) ... ok
+test_atomic_table_replacement_is_scoped_and_checked (test_geoip.Rules.test_atomic_table_replacement_is_scoped_and_checked) ... ok
+test_empty_ipv6_country_list_still_has_final_ssh_drop (test_geoip.Rules.test_empty_ipv6_country_list_still_has_final_ssh_drop) ... ok
+test_snapshot_ids_cannot_escape_state_dir (test_geoip.Rules.test_snapshot_ids_cannot_escape_state_dir) ... ok
+test_two_interval_sets_and_five_rules_for_thousands_of_prefixes (test_geoip.Rules.test_two_interval_sets_and_five_rules_for_thousands_of_prefixes) ... ok
+test_unmanaged_table_is_refused (test_geoip.Rules.test_unmanaged_table_is_refused) ... ok
+test_validation_failure_never_runs_apply (test_geoip.Rules.test_validation_failure_never_runs_apply) ... ok
+test_whitelist_and_existing_session_paths_are_present (test_geoip.Rules.test_whitelist_and_existing_session_paths_are_present) ... ok
 test_irreversible_existing_bpf_lock_is_not_treated_as_reversible (test_v02.IdentityV02Tests.test_irreversible_existing_bpf_lock_is_not_treated_as_reversible) ... ok
 test_ssh_identity_recovered_through_sudo_ancestor (test_v02.IdentityV02Tests.test_ssh_identity_recovered_through_sudo_ancestor) ... ok
 test_install_creates_readable_program_and_launcher_with_undo (test_v02.InstallerModeTests.test_install_creates_readable_program_and_launcher_with_undo) ... ok
@@ -310,7 +340,7 @@ Linux Telegram Alerts v1.2.0
 
 ────────────────────────────────────────────────────────────────
 Όνομα πελάτη / server
-Προεπιλογή: cddb31a7334f
+Προεπιλογή: ed987e95b43b
 
 ────────────────────────────────────────────────────────────────
 Bot Token
@@ -335,7 +365,7 @@ Topic/thread ID (0=χωρίς topic)
 ✅ Εγκαταστάθηκε v1.2.0
 Έλεγχος: sudo linux-telegram-alerts status
 Ρυθμίσεις: sudo linux-telegram-alerts configure
-Backup: /tmp/tmpdtkpxt19/state/backup-20261111-153831-626192
+Backup: /tmp/tmpel9u6dhm/state/backup-20261118-175113-436542
 
 ────────────────────────────────────────────────────────────────
 Language / Γλώσσα: [1] English  [2] Ελληνικά
@@ -391,12 +421,12 @@ Default: 1
 20. [ ] 📝 Changes to passwd / group / sudoers / SSH config
 21. [ ] 📊 Daily health report
 22. [ ] 📦 Notifications from your own scripts (enqueue)
-Aegis Linux Hardener 0.8.0
+Aegis Linux Hardener 0.9.0
 System info, security hardening and Telegram alerts in one tool.
 Installs program files in /opt/aegis-linux-hardener and the /usr/local/bin/aegis launcher.
 No firewall, SSH, optional packages or Telegram configuration is changed by this bootstrap.
-Program undo ID: 20261111-153831-17cadd3e
-Recovery command: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmp_lkxr7zo/state/backups/20261111-153831-17cadd3e/runner/aegis.py rollback 20261111-153831-17cadd3e
+Program undo ID: 20261118-175113-df5c3c6e
+Recovery command: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpdnna06hj/state/backups/20261118-175113-df5c3c6e/runner/aegis.py rollback 20261118-175113-df5c3c6e
 Installed. Start with: aegis
 Read-only CLI: aegis info --json | aegis monitor --sort cpu | aegis audit
 Portable mode: no /opt installation or aegis launcher is created.
@@ -588,7 +618,7 @@ test_no_match_is_empty (test_v08.Search.test_no_match_is_empty) ... ok
 test_package_name_and_unicode_match (test_v08.Search.test_package_name_and_unicode_match) ... ok
 
 ----------------------------------------------------------------------
-Ran 250 tests in 0.196s
+Ran 280 tests in 0.522s
 
 OK
 
@@ -596,15 +626,15 @@ metadata
 
 
 Managed file changes:
-/tmp/tmpvfcl4l8y/home permissions → 0o750
+/tmp/tmps5mel9fz/home permissions → 0o750
 
 Commands:
 
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261111-153831-3759ae45
-Applied. Managed-file backup: /tmp/tmpvfcl4l8y/state/backups/20261111-153831-3759ae45
+Backup/change ID: 20261118-175113-de4b355a
+Applied. Managed-file backup: /tmp/tmps5mel9fz/state/backups/20261118-175113-de4b355a
 
 ────────────────────────────────────────────────────────────────────
 network
@@ -613,7 +643,7 @@ network
 
 
 Managed file changes:
-/tmp/tmp2xvir1mz/network.conf
+/tmp/tmp1dcm8_up/network.conf
     new
 
 Commands:
@@ -625,11 +655,11 @@ Open a SECOND SSH connection and run the displayed confirm command.
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261111-153831-f235c58a
-Confirm in a NEW connection: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmp2xvir1mz/state/backups/20261111-153831-f235c58a/runner/aegis.py confirm 20261111-153831-f235c58a
+Backup/change ID: 20261118-175113-586f9459
+Confirm in a NEW connection: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmp1dcm8_up/state/backups/20261118-175113-586f9459/runner/aegis.py confirm 20261118-175113-586f9459
 
 Open a NEW SSH connection (use the NEW IP after a network change), then run:
-sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmp2xvir1mz/state/backups/20261111-153831-f235c58a/runner/aegis.py confirm 20261111-153831-f235c58a
+sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmp1dcm8_up/state/backups/20261118-175113-586f9459/runner/aegis.py confirm 20261118-175113-586f9459
 If not confirmed, the managed files/rules will be restored after 180 seconds.
 Opening custom-duf. Exit with its own q/Ctrl+C command to return to Aegis.
 Actions performed inside external tools use their own behavior/history; Aegis installation undo covers installation changes.

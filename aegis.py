@@ -13,7 +13,7 @@ import shutil
 import subprocess
 import sys
 
-from aegis import VERSION, TITLE, TAGLINE, system, actions, security, catalog, console, networking, lynis, panels, defense, toolinstall, logs, launch, dependencies, users, shares, nameconfig, management, uninstall, themes, sourcebuild, categories, selfupdate, appregistry, catalogmanager, appsearch
+from aegis import VERSION, TITLE, TAGLINE, system, actions, security, catalog, console, networking, lynis, panels, defense, toolinstall, logs, launch, dependencies, users, shares, nameconfig, management, uninstall, themes, sourcebuild, categories, selfupdate, appregistry, catalogmanager, appsearch, geoip, geoip_engine
 from aegis.ui import UI, table
 
 ENTRY = Path(__file__).resolve()
@@ -77,6 +77,7 @@ def dispatch(request, origin):
             print('Enter a number from 8 to 128, or q to cancel.')
     if kind == 'app':
         plan = catalog.app_plan(request['app'], user)
+    elif kind=='geoip-browser':geoip.menu(console.LANGUAGE,console.THEME);return
     elif kind=='catalog-manager':catalogmanager.menu(console.LANGUAGE,console.THEME);return
     elif kind=='self-update':return selfupdate.run(console.confirm,VERSION)
     elif kind=='hostname':plan=nameconfig.hostname_plan(request['hostname'],request.get('update_hosts',True))
@@ -250,6 +251,8 @@ def dispatch(request, origin):
         subprocess.run(['lynis', 'audit', 'system', '--quick'])
         return
     elif kind == 'uninstall':
+        if geoip.settings()['enabled']:
+            raise ValueError('Disable GeoIP SSH policy in Fail2Ban Manager before removing Aegis.')
         target = Path('/opt/aegis-linux-hardener')
         launcher = Path('/usr/local/bin/aegis')
         if target.is_symlink() or not (target / '.aegis-managed').is_file():
@@ -400,13 +403,15 @@ def fail2ban_menu(ui):
         version=system.installed('fail2ban')
         choice = ui.choose('Fail2Ban Manager', [
             ('status', 'Status / jails', 'Show current Fail2Ban server state.'),
+            ('geoip', 'GeoIP SSH / Zone Feed', 'Allowed countries/continents, IP list updates and trusted exceptions using two nftables sets.'),
             ('install', installed_label('Install Fail2Ban',version), 'Install fail2ban and python3-systemd using configured APT repositories.'),
             ('configure', 'Configure protection', 'Select available jails, whitelist, thresholds and SSH port.'),
             ('jail', 'Inspect jail', 'Show banned IPs and counters for one jail.'),
             ('ban', 'Ban IP', 'Explicit live ban in a selected jail.'), ('unban', 'Unban IP', 'Explicit live unban.')])
         if choice is None: return
         if choice in ('status','configure','jail','ban','unban') and not prepare_dependencies(ui,{'kind':'fail2ban'}):continue
-        if choice == 'status': ui.view('Fail2Ban', lambda: output(['fail2ban-client', 'status']))
+        if choice=='geoip':do(ui,{'kind':'geoip-browser'})
+        elif choice == 'status': ui.view('Fail2Ban', lambda: output(['fail2ban-client', 'status']))
         elif choice == 'install':
             if version:ui.view('Fail2Ban',lambda: output(['fail2ban-client','status']))
             else:do(ui, {'kind':'install-security','package':'fail2ban'})
@@ -904,6 +909,8 @@ def main():
     parser.add_argument('--basic', action='store_true')
     parser.add_argument('--sort', choices=['ram', 'cpu'], default='ram')
     parser.add_argument('--language', choices=['en', 'el'])
+    parser.add_argument('--geoip-runtime',choices=['capture','restore','apply','check','disable'],help=argparse.SUPPRESS)
+    parser.add_argument('--geoip-snapshot',default='',help=argparse.SUPPRESS)
     parser.add_argument('--hostname-runtime', help=argparse.SUPPRESS)
     parser.add_argument('--build-netscanner', help=argparse.SUPPRESS)
     parser.add_argument('--dns-reload', help=argparse.SUPPRESS)
@@ -916,6 +923,8 @@ def main():
     parser.add_argument('--automatic', action='store_true', help=argparse.SUPPRESS)
     args = parser.parse_args()
     if sys.version_info < (3, 9): raise RuntimeError('Python 3.9+ required')
+    if args.geoip_runtime:
+        geoip_engine.run(args.geoip_runtime,args.geoip_snapshot);return
     if args.hostname_runtime:
         if os.geteuid()!=0:raise RuntimeError('Root required')
         nameconfig.restore_runtime_hostname(args.hostname_runtime);return
