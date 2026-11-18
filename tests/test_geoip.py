@@ -49,7 +49,7 @@ class Data(unittest.TestCase):
     def test_invalid_zone_feed_urls_rejected(self):
         for value in ('file:///etc/shadow','ftp://example.com','http://u:p@example.com','https://host/?x=1','https://host/#f','http://host:invalid'):
             with self.assertRaises(ValueError):g.base_url(value)
-        self.assertEqual(g.base_url('http://192.168.5.28:8088/'),'http://192.168.5.28:8088')
+        self.assertEqual(g.base_url('https://feed.example.org/'),'https://feed.example.org')
     def test_download_rejects_protocol_redirect_and_size(self):
         response=Mock();response.__enter__=Mock(return_value=response);response.__exit__=Mock(return_value=False)
         response.geturl.return_value='http://elsewhere.invalid/feed';response.read.return_value=b'abc'
@@ -66,10 +66,10 @@ class Data(unittest.TestCase):
         self.assertEqual(g.selected_networks(value,data)['4'],['8.8.8.0/24'])
         with self.assertRaises(ValueError):g.selected_networks(cfg(countries=['AX'],expanded=['AX']),data)
     def test_provider_paths_and_dual_stack(self):
-        value=cfg(source='zone-feed',base_url='http://192.168.5.28:8088')
+        value=cfg(source='zone-feed',base_url='https://feed.example.org')
         with patch.object(g,'download',side_effect=[b'8.8.8.0/24\n',b'2001:4860::/32\n']) as fetch:
             result=g.collect_feed(value)
-        self.assertEqual([call.args[0] for call in fetch.call_args_list],['http://192.168.5.28:8088/feeds/gr.zone','http://192.168.5.28:8088/feeds/gr-v6.zone'])
+        self.assertEqual([call.args[0] for call in fetch.call_args_list],['https://feed.example.org/feeds/gr.zone','https://feed.example.org/feeds/gr-v6.zone'])
         self.assertEqual(len(result['countries']['GR']['6']),1)
     def test_bad_custom_list_is_not_silently_accepted(self):
         with patch.object(g,'download',return_value=b'<html>403</html>'):
@@ -127,9 +127,9 @@ class Plans(unittest.TestCase):
     def tearDown(self):
         for p in reversed(self.patches):p.stop()
         self.temp.cleanup()
-    def test_enable_is_timed_backed_up_and_has_no_ruleset_flush(self):
+    def test_enable_is_permanent_backed_up_and_has_no_ruleset_flush(self):
         plan=geoip.policy_plan(cfg(),cache())
-        self.assertTrue(plan.critical);self.assertTrue(plan.persist_runner)
+        self.assertFalse(plan.critical);self.assertTrue(plan.persist_runner)
         self.assertIn(str(g.CONFIG),plan.writes);self.assertIn(str(g.RUNTIME),plan.writes)
         self.assertIn(str(g.CACHE),plan.write_summaries);self.assertIn(str(g.RULES),plan.write_summaries)
         self.assertIn('capture',plan.before[0]);self.assertIn('restore',plan.rollback_commands[-1])
@@ -148,7 +148,7 @@ class Plans(unittest.TestCase):
         plan=geoip.cache_plan(cache());self.assertFalse(plan.critical);self.assertFalse(plan.commands);self.assertEqual(list(plan.writes),[str(g.CACHE)])
     def test_disable_only_removes_own_table_and_retains_rollback(self):
         plan=geoip.policy_plan(cfg(enabled=False))
-        self.assertTrue(plan.critical);self.assertIn('disable',plan.commands[-1]);self.assertFalse(plan.package_change)
+        self.assertFalse(plan.critical);self.assertIn('disable',plan.commands[-1]);self.assertFalse(plan.package_change)
     def test_restore_replays_only_owned_runtime_snapshot(self):
         token='a'*32;snapshot={'schema':1,'table':'prior table','unit':{'enabled':False,'active':False}}
         g.write_json(g.snapshot_path(token),snapshot)

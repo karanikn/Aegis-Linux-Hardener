@@ -61,7 +61,7 @@ test
 
 
 Managed file changes:
-/tmp/tmpg5hfs8qf/config
+/tmp/tmph8m3pwvu/config
     new
 
 Commands:
@@ -69,8 +69,8 @@ Commands:
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261118-175113-b96c08a7
-Applied. Managed-file backup: /tmp/tmpg5hfs8qf/state/backups/20261118-175113-b96c08a7
+Backup/change ID: 20261118-202223-1e04bebb
+Applied. Managed-file backup: /tmp/tmph8m3pwvu/state/backups/20261118-202223-1e04bebb
 
 ────────────────────────────────────────────────────────────────────
 test
@@ -79,7 +79,7 @@ test
 
 
 Managed file changes:
-/tmp/tmpdjfo275h/config
+/tmp/tmp7emazwi5/config
     new
 
 Commands:
@@ -110,7 +110,7 @@ test
 
 
 Managed file changes:
-/tmp/tmpl0udxzwi/config
+/tmp/tmpu_y_sv6p/config
     new
 
 Commands:
@@ -119,7 +119,7 @@ Commands:
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261118-175113-87a72ae2
+Backup/change ID: 20261118-202223-80747702
 
 ────────────────────────────────────────────────────────────────────
 critical
@@ -145,7 +145,7 @@ new
 
 
 Managed file changes:
-/tmp/tmpgr5qkch6/new-file
+/tmp/tmpra85n4q1/new-file
     content
 
 Commands:
@@ -153,8 +153,8 @@ Commands:
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261118-175113-c9dd8b2b
-Applied. Managed-file backup: /tmp/tmpgr5qkch6/state/backups/20261118-175113-c9dd8b2b
+Backup/change ID: 20261118-202223-35a30615
+Applied. Managed-file backup: /tmp/tmpra85n4q1/state/backups/20261118-202223-35a30615
 
 Verify access works in this NEW session. Keep the change? [Y/n · Enter=yes]
 Default: y
@@ -168,7 +168,7 @@ test
 
 
 Managed file changes:
-/tmp/tmp1rmm7lpv/config
+/tmp/tmpck4w2wlq/config
     new
 
 Commands:
@@ -184,7 +184,7 @@ package
 
 
 Managed file changes:
-/tmp/tmpdjk8d5k7/config (configured after package installation, before service start)
+/tmp/tmpnv0bpwi0/config (configured after package installation, before service start)
 
 Commands:
   fake-install
@@ -193,8 +193,8 @@ Commands:
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261118-175113-89a68ee3
-Applied. Managed-file backup: /tmp/tmpdjk8d5k7/state/backups/20261118-175113-89a68ee3
+Backup/change ID: 20261118-202223-9d628e8d
+Applied. Managed-file backup: /tmp/tmpnv0bpwi0/state/backups/20261118-202223-9d628e8d
 
 ────────────────────────────────────────────────────────────────────
 critical
@@ -203,7 +203,7 @@ critical
 
 
 Managed file changes:
-/tmp/tmpwm63nh_n/config
+/tmp/tmpzw6coegj/config
     new
 
 Commands:
@@ -214,15 +214,15 @@ Open a SECOND SSH connection and run the displayed confirm command.
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261118-175113-99570f8b
-Confirm in a NEW connection: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpwm63nh_n/state/backups/20261118-175113-99570f8b/runner/aegis.py confirm 20261118-175113-99570f8b
+Backup/change ID: 20261118-202223-d7b37b54
+Confirm in a NEW connection: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpzw6coegj/state/backups/20261118-202223-d7b37b54/runner/aegis.py confirm 20261118-202223-d7b37b54
 
 Open a NEW SSH connection (use the NEW IP after a network change), then run:
-sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpwm63nh_n/state/backups/20261118-175113-99570f8b/runner/aegis.py confirm 20261118-175113-99570f8b
+sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpzw6coegj/state/backups/20261118-202223-d7b37b54/runner/aegis.py confirm 20261118-202223-d7b37b54
 If not confirmed, the managed files/rules will be restored after 180 seconds.
 
-Aegis Linux Hardener v0.9.0
-ed987e95b43b | Debian GNU/Linux 13 (trixie) | x86_64 | 9 CPU
+Aegis Linux Hardener v0.9.1
+557db03469b3 | Debian GNU/Linux 13 (trixie) | x86_64 | 9 CPU
 test
 1. Test — Read only
 
@@ -270,7 +270,7 @@ test_shrink_guard_compares_address_coverage (test_geoip.Data.test_shrink_guard_c
 test_all_detected_ssh_ports_must_be_covered (test_geoip.Plans.test_all_detected_ssh_ports_must_be_covered) ... ok
 test_cache_update_does_not_touch_firewall_when_disabled (test_geoip.Plans.test_cache_update_does_not_touch_firewall_when_disabled) ... ok
 test_disable_only_removes_own_table_and_retains_rollback (test_geoip.Plans.test_disable_only_removes_own_table_and_retains_rollback) ... ok
-test_enable_is_timed_backed_up_and_has_no_ruleset_flush (test_geoip.Plans.test_enable_is_timed_backed_up_and_has_no_ruleset_flush) ... ok
+test_enable_is_permanent_backed_up_and_has_no_ruleset_flush (test_geoip.Plans.test_enable_is_permanent_backed_up_and_has_no_ruleset_flush) ... ok
 test_guard_rejects_concurrent_file_edits (test_geoip.Plans.test_guard_rejects_concurrent_file_edits) ... ok
 test_management_source_cannot_be_locked_out (test_geoip.Plans.test_management_source_cannot_be_locked_out) ... ok
 test_restore_replays_only_owned_runtime_snapshot (test_geoip.Plans.test_restore_replays_only_owned_runtime_snapshot) ... ok
@@ -282,37 +282,9 @@ test_two_interval_sets_and_five_rules_for_thousands_of_prefixes (test_geoip.Rule
 test_unmanaged_table_is_refused (test_geoip.Rules.test_unmanaged_table_is_refused) ... ok
 test_validation_failure_never_runs_apply (test_geoip.Rules.test_validation_failure_never_runs_apply) ... ok
 test_whitelist_and_existing_session_paths_are_present (test_geoip.Rules.test_whitelist_and_existing_session_paths_are_present) ... ok
-test_irreversible_existing_bpf_lock_is_not_treated_as_reversible (test_v02.IdentityV02Tests.test_irreversible_existing_bpf_lock_is_not_treated_as_reversible) ... ok
-test_ssh_identity_recovered_through_sudo_ancestor (test_v02.IdentityV02Tests.test_ssh_identity_recovered_through_sudo_ancestor) ... ok
-test_install_creates_readable_program_and_launcher_with_undo (test_v02.InstallerModeTests.test_install_creates_readable_program_and_launcher_with_undo) ... ok
-test_portable_does_not_create_installed_paths (test_v02.InstallerModeTests.test_portable_does_not_create_installed_paths) ... ok
-test_core_dump_policy_is_file_based_and_undoable (test_v02.LynisTests.test_core_dump_policy_is_file_based_and_undoable) ... ok
-test_findings_parser_maps_control_without_executing_it (test_v02.LynisTests.test_findings_parser_maps_control_without_executing_it) ... ok
-test_historical_fail2ban_hint_is_not_blindly_applied (test_v02.LynisTests.test_historical_fail2ban_hint_is_not_blindly_applied) ... ok
-test_irreversible_locks_not_exposed (test_v02.LynisTests.test_irreversible_locks_not_exposed) ... ok
-test_new_user_defaults_do_not_modify_existing_shadow (test_v02.LynisTests.test_new_user_defaults_do_not_modify_existing_shadow) ... ok
-test_permissions_snapshot_only_metadata (test_v02.LynisTests.test_permissions_snapshot_only_metadata) ... ok
-test_page_down_and_end_select_expected_items_without_commands (test_v02.NavigationTests.test_page_down_and_end_select_expected_items_without_commands) ... ok
-test_activation_reloads_nm_before_connection_up (test_v02.NetworkTests.test_activation_reloads_nm_before_connection_up) ... ok
-test_bad_addresses_rejected (test_v02.NetworkTests.test_bad_addresses_rejected) ... ok
-test_dhcp_does_not_require_static_values (test_v02.NetworkTests.test_dhcp_does_not_require_static_values) ... ok
-test_ifupdown_custom_hooks_are_not_destroyed (test_v02.NetworkTests.test_ifupdown_custom_hooks_are_not_destroyed) ... ok
-test_ifupdown_include_source_directory_supported (test_v02.NetworkTests.test_ifupdown_include_source_directory_supported) ... ok
-test_ifupdown_preserves_ipv6_and_other_interfaces (test_v02.NetworkTests.test_ifupdown_preserves_ipv6_and_other_interfaces) ... ok
-test_interface_injection_and_loopback_rejected (test_v02.NetworkTests.test_interface_injection_and_loopback_rejected) ... ok
-test_netplan_static_to_dhcp_removes_old_ipv4_without_sequence_merge (test_v02.NetworkTests.test_netplan_static_to_dhcp_removes_old_ipv4_without_sequence_merge) ... ok
-test_networkd_complex_route_not_silently_replaced (test_v02.NetworkTests.test_networkd_complex_route_not_silently_replaced) ... ok
-test_nm_secrets_preserved_but_not_printed (test_v02.NetworkTests.test_nm_secrets_preserved_but_not_printed) ... ok
-test_static_validated_before_changes (test_v02.NetworkTests.test_static_validated_before_changes) ... ok
-test_enter_and_y_confirm (test_v02.PromptTests.test_enter_and_y_confirm) ... ok
-test_invalid_confirmation_is_not_silently_approved (test_v02.PromptTests.test_invalid_confirmation_is_not_silently_approved) ... ok
-test_n_cancels (test_v02.PromptTests.test_n_cancels) ... ok
-test_secret_input_is_hidden (test_v02.PromptTests.test_secret_input_is_hidden) ... ok
-test_empty_package_state_is_not_an_undo_promise (test_v02.RecoveryTests.test_empty_package_state_is_not_an_undo_promise) ... ok
-test_missing_old_deb_refuses_to_claim_complete_undo (test_v02.RecoveryTests.test_missing_old_deb_refuses_to_claim_complete_undo) ... ok
-test_new_packages_diff_and_old_version_diff (test_v02.RecoveryTests.test_new_packages_diff_and_old_version_diff) ... ok
-test_undo_does_not_remove_preexisting_dependency (test_v02.RecoveryTests.test_undo_does_not_remove_preexisting_dependency) ... ok
-test_metadata_mode_restored_without_copying_directory_contents (test_v02.TransactionV02Tests.test_metadata_mode_restored_without_copying_directory_contents) ... 
+test_browser_return_has_no_extra_pause (test_geoip_updates.Updates.test_browser_return_has_no_extra_pause) ... ok
+test_cache_write_failure_restores_previous_table (test_geoip_updates.Updates.test_cache_write_failure_restores_previous_table) ... ok
+test_disabled_refresh_updates_cache_without_touching_firewall (test_geoip_updates.Updates.test_disabled_refresh_updates_cache_without_touching_firewall) ... 
 ────────────────────────────────────────────────────────────────
 Chat / Channel ID ή @public_channel
 Προεπιλογή: -100123
@@ -340,7 +312,7 @@ Linux Telegram Alerts v1.2.0
 
 ────────────────────────────────────────────────────────────────
 Όνομα πελάτη / server
-Προεπιλογή: ed987e95b43b
+Προεπιλογή: 557db03469b3
 
 ────────────────────────────────────────────────────────────────
 Bot Token
@@ -365,7 +337,7 @@ Topic/thread ID (0=χωρίς topic)
 ✅ Εγκαταστάθηκε v1.2.0
 Έλεγχος: sudo linux-telegram-alerts status
 Ρυθμίσεις: sudo linux-telegram-alerts configure
-Backup: /tmp/tmpel9u6dhm/state/backup-20261118-175113-436542
+Backup: /tmp/tmprcb986df/state/backup-20261118-202223-676982
 
 ────────────────────────────────────────────────────────────────
 Language / Γλώσσα: [1] English  [2] Ελληνικά
@@ -421,46 +393,51 @@ Default: 1
 20. [ ] 📝 Changes to passwd / group / sudoers / SSH config
 21. [ ] 📊 Daily health report
 22. [ ] 📦 Notifications from your own scripts (enqueue)
-Aegis Linux Hardener 0.9.0
-System info, security hardening and Telegram alerts in one tool.
-Installs program files in /opt/aegis-linux-hardener and the /usr/local/bin/aegis launcher.
-No firewall, SSH, optional packages or Telegram configuration is changed by this bootstrap.
-Program undo ID: 20261118-175113-df5c3c6e
-Recovery command: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpdnna06hj/state/backups/20261118-175113-df5c3c6e/runner/aegis.py rollback 20261118-175113-df5c3c6e
-Installed. Start with: aegis
-Read-only CLI: aegis info --json | aegis monitor --sort cpu | aegis audit
-Portable mode: no /opt installation or aegis launcher is created.
-
-Continue? [Y/n · Enter=yes]
-Default: y
-↑/↓ · type · Enter: default/selected · Esc: back | y / n
-
-Continue? [Y/n · Enter=yes]
-Default: y
-↑/↓ · type · Enter: default/selected · Esc: back | y / n
-
-Continue? [Y/n · Enter=yes]
-Default: y
-↑/↓ · type · Enter: default/selected · Esc: back | y / n
-
-Continue? [Y/n · Enter=yes]
-Default: y
-↑/↓ · type · Enter: default/selected · Esc: back | y / n
-
-Continue? [Y/n · Enter=yes]
-Default: y
-↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Continue? [Y/n · Enter=yes] — Choose one of: y / n
-
-Continue? [Y/n · Enter=yes]
-Default: y
-↑/↓ · type · Enter: default/selected · Esc: back | y / n
-
-Secret
-
-────────────────────────────────────────────────────────────────────
-metadata
-────────────────────────────────────────────────────────────────────ok
+GeoIP lists updated: 2026-11-18; policy disabled; backup /tmp/tmp0myjoj7l/state/geoip/scheduled-backups/20261118T202224022463Z.json
+ok
+test_failed_download_keeps_prior_cache (test_geoip_updates.Updates.test_failed_download_keeps_prior_cache) ... ok
+test_invalid_schedule_is_refused (test_geoip_updates.Updates.test_invalid_schedule_is_refused) ... ok
+test_large_shrink_is_rejected_without_changing_active_rules (test_geoip_updates.Updates.test_large_shrink_is_rejected_without_changing_active_rules) ... ok
+test_legacy_nft_json_without_table_comment_uses_text_marker (test_geoip_updates.Updates.test_legacy_nft_json_without_table_comment_uses_text_marker) ... ok
+test_pending_other_action_prevents_unattended_refresh (test_geoip_updates.Updates.test_pending_other_action_prevents_unattended_refresh) ... ok
+test_schedule_plan_has_no_confirmation_timer_and_retains_state_for_undo (test_geoip_updates.Updates.test_schedule_plan_has_no_confirmation_timer_and_retains_state_for_undo) ... ok
+test_scheduled_active_refresh_publishes_and_keeps_snapshot (test_geoip_updates.Updates.test_scheduled_active_refresh_publishes_and_keeps_snapshot) ... GeoIP lists updated: 2026-11-18; policy active; backup /tmp/tmpxtrsupj1/state/geoip/scheduled-backups/20261118T202224030462Z.json
+ok
+test_selection_while_disabled_does_not_enable_filtering (test_geoip_updates.Updates.test_selection_while_disabled_does_not_enable_filtering) ... ok
+test_status_does_not_label_missing_runtime_as_active (test_geoip_updates.Updates.test_status_does_not_label_missing_runtime_as_active) ... ok
+test_status_includes_selected_countries_and_explicit_exceptions (test_geoip_updates.Updates.test_status_includes_selected_countries_and_explicit_exceptions) ... ok
+test_unmarked_existing_table_remains_protected (test_geoip_updates.Updates.test_unmarked_existing_table_remains_protected) ... ok
+test_irreversible_existing_bpf_lock_is_not_treated_as_reversible (test_v02.IdentityV02Tests.test_irreversible_existing_bpf_lock_is_not_treated_as_reversible) ... ok
+test_ssh_identity_recovered_through_sudo_ancestor (test_v02.IdentityV02Tests.test_ssh_identity_recovered_through_sudo_ancestor) ... ok
+test_install_creates_readable_program_and_launcher_with_undo (test_v02.InstallerModeTests.test_install_creates_readable_program_and_launcher_with_undo) ... ok
+test_portable_does_not_create_installed_paths (test_v02.InstallerModeTests.test_portable_does_not_create_installed_paths) ... ok
+test_core_dump_policy_is_file_based_and_undoable (test_v02.LynisTests.test_core_dump_policy_is_file_based_and_undoable) ... ok
+test_findings_parser_maps_control_without_executing_it (test_v02.LynisTests.test_findings_parser_maps_control_without_executing_it) ... ok
+test_historical_fail2ban_hint_is_not_blindly_applied (test_v02.LynisTests.test_historical_fail2ban_hint_is_not_blindly_applied) ... ok
+test_irreversible_locks_not_exposed (test_v02.LynisTests.test_irreversible_locks_not_exposed) ... ok
+test_new_user_defaults_do_not_modify_existing_shadow (test_v02.LynisTests.test_new_user_defaults_do_not_modify_existing_shadow) ... ok
+test_permissions_snapshot_only_metadata (test_v02.LynisTests.test_permissions_snapshot_only_metadata) ... ok
+test_page_down_and_end_select_expected_items_without_commands (test_v02.NavigationTests.test_page_down_and_end_select_expected_items_without_commands) ... ok
+test_activation_reloads_nm_before_connection_up (test_v02.NetworkTests.test_activation_reloads_nm_before_connection_up) ... ok
+test_bad_addresses_rejected (test_v02.NetworkTests.test_bad_addresses_rejected) ... ok
+test_dhcp_does_not_require_static_values (test_v02.NetworkTests.test_dhcp_does_not_require_static_values) ... ok
+test_ifupdown_custom_hooks_are_not_destroyed (test_v02.NetworkTests.test_ifupdown_custom_hooks_are_not_destroyed) ... ok
+test_ifupdown_include_source_directory_supported (test_v02.NetworkTests.test_ifupdown_include_source_directory_supported) ... ok
+test_ifupdown_preserves_ipv6_and_other_interfaces (test_v02.NetworkTests.test_ifupdown_preserves_ipv6_and_other_interfaces) ... ok
+test_interface_injection_and_loopback_rejected (test_v02.NetworkTests.test_interface_injection_and_loopback_rejected) ... ok
+test_netplan_static_to_dhcp_removes_old_ipv4_without_sequence_merge (test_v02.NetworkTests.test_netplan_static_to_dhcp_removes_old_ipv4_without_sequence_merge) ... ok
+test_networkd_complex_route_not_silently_replaced (test_v02.NetworkTests.test_networkd_complex_route_not_silently_replaced) ... ok
+test_nm_secrets_preserved_but_not_printed (test_v02.NetworkTests.test_nm_secrets_preserved_but_not_printed) ... ok
+test_static_validated_before_changes (test_v02.NetworkTests.test_static_validated_before_changes) ... ok
+test_enter_and_y_confirm (test_v02.PromptTests.test_enter_and_y_confirm) ... ok
+test_invalid_confirmation_is_not_silently_approved (test_v02.PromptTests.test_invalid_confirmation_is_not_silently_approved) ... ok
+test_n_cancels (test_v02.PromptTests.test_n_cancels) ... ok
+test_secret_input_is_hidden (test_v02.PromptTests.test_secret_input_is_hidden) ... ok
+test_empty_package_state_is_not_an_undo_promise (test_v02.RecoveryTests.test_empty_package_state_is_not_an_undo_promise) ... ok
+test_missing_old_deb_refuses_to_claim_complete_undo (test_v02.RecoveryTests.test_missing_old_deb_refuses_to_claim_complete_undo) ... ok
+test_new_packages_diff_and_old_version_diff (test_v02.RecoveryTests.test_new_packages_diff_and_old_version_diff) ... ok
+test_undo_does_not_remove_preexisting_dependency (test_v02.RecoveryTests.test_undo_does_not_remove_preexisting_dependency) ... ok
+test_metadata_mode_restored_without_copying_directory_contents (test_v02.TransactionV02Tests.test_metadata_mode_restored_without_copying_directory_contents) ... ok
 test_network_activation_is_detached_from_parent_ssh (test_v02.TransactionV02Tests.test_network_activation_is_detached_from_parent_ssh) ... ok
 test_portable_recovery_runner_survives_source_removal (test_v02.TransactionV02Tests.test_portable_recovery_runner_survives_source_removal) ... ok
 test_architecture_checked (test_v03.ArtifactsV03.test_architecture_checked) ... ok
@@ -618,23 +595,62 @@ test_no_match_is_empty (test_v08.Search.test_no_match_is_empty) ... ok
 test_package_name_and_unicode_match (test_v08.Search.test_package_name_and_unicode_match) ... ok
 
 ----------------------------------------------------------------------
-Ran 280 tests in 0.522s
+Ran 294 tests in 0.538s
 
 OK
+Aegis Linux Hardener 0.9.1
+System info, security hardening and Telegram alerts in one tool.
+Installs program files in /opt/aegis-linux-hardener and the /usr/local/bin/aegis launcher.
+No firewall, SSH, optional packages or Telegram configuration is changed by this bootstrap.
+Program undo ID: 20261118-202224-0cdfabd4
+Recovery command: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmp06_mo95c/state/backups/20261118-202224-0cdfabd4/runner/aegis.py rollback 20261118-202224-0cdfabd4
+Installed. Start with: aegis
+Read-only CLI: aegis info --json | aegis monitor --sort cpu | aegis audit
+Portable mode: no /opt installation or aegis launcher is created.
 
+Continue? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+
+Continue? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+
+Continue? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+
+Continue? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+
+Continue? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+Continue? [Y/n · Enter=yes] — Choose one of: y / n
+
+Continue? [Y/n · Enter=yes]
+Default: y
+↑/↓ · type · Enter: default/selected · Esc: back | y / n
+
+Secret
+
+────────────────────────────────────────────────────────────────────
+metadata
+────────────────────────────────────────────────────────────────────
 metadata
 
 
 Managed file changes:
-/tmp/tmps5mel9fz/home permissions → 0o750
+/tmp/tmpg7tlbhw1/home permissions → 0o750
 
 Commands:
 
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261118-175113-de4b355a
-Applied. Managed-file backup: /tmp/tmps5mel9fz/state/backups/20261118-175113-de4b355a
+Backup/change ID: 20261118-202224-2b387424
+Applied. Managed-file backup: /tmp/tmpg7tlbhw1/state/backups/20261118-202224-2b387424
 
 ────────────────────────────────────────────────────────────────────
 network
@@ -643,7 +659,7 @@ network
 
 
 Managed file changes:
-/tmp/tmp1dcm8_up/network.conf
+/tmp/tmpfjgnsfjb/network.conf
     new
 
 Commands:
@@ -655,11 +671,11 @@ Open a SECOND SSH connection and run the displayed confirm command.
 Apply this plan? [Y/n · Enter=yes]
 Default: y
 ↑/↓ · type · Enter: default/selected · Esc: back | y / n
-Backup/change ID: 20261118-175113-586f9459
-Confirm in a NEW connection: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmp1dcm8_up/state/backups/20261118-175113-586f9459/runner/aegis.py confirm 20261118-175113-586f9459
+Backup/change ID: 20261118-202224-04221580
+Confirm in a NEW connection: sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpfjgnsfjb/state/backups/20261118-202224-04221580/runner/aegis.py confirm 20261118-202224-04221580
 
 Open a NEW SSH connection (use the NEW IP after a network change), then run:
-sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmp1dcm8_up/state/backups/20261118-175113-586f9459/runner/aegis.py confirm 20261118-175113-586f9459
+sudo /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/tmpfjgnsfjb/state/backups/20261118-202224-04221580/runner/aegis.py confirm 20261118-202224-04221580
 If not confirmed, the managed files/rules will be restored after 180 seconds.
 Opening custom-duf. Exit with its own q/Ctrl+C command to return to Aegis.
 Actions performed inside external tools use their own behavior/history; Aegis installation undo covers installation changes.

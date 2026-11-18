@@ -12,6 +12,7 @@ import json
 import os
 from pathlib import Path
 import re
+import signal
 import subprocess
 import tempfile
 import urllib.error
@@ -25,6 +26,8 @@ CONFIG=Path('/etc/aegis-linux-hardener/geoip-ssh.json')
 CACHE=ROOT/'lists.json'
 RULES=Path('/etc/aegis-linux-hardener/geoip-ssh.nft')
 UNIT='aegis-geoip-ssh.service'
+UPDATE_UNIT='aegis-geoip-update.service'
+UPDATE_TIMER='aegis-geoip-update.timer'
 RUNTIME=ROOT/'engine.py'
 RIRS={
  'RIPE NCC':'https://ftp.ripe.net/pub/stats/ripencc/delegated-ripencc-latest',
@@ -51,11 +54,15 @@ def read_json(path,default=None):
 
 
 def write_json(path,value):
+    write_text(path,json.dumps(value))
+
+
+def write_text(path,value):
     path.parent.mkdir(parents=True,exist_ok=True,mode=0o700)
     fd,name=tempfile.mkstemp(dir=path.parent,prefix='.geoip-')
     try:
         with os.fdopen(fd,'w') as handle:
-            os.fchmod(handle.fileno(),0o600);json.dump(value,handle);handle.flush();os.fsync(handle.fileno())
+            os.fchmod(handle.fileno(),0o600);handle.write(value);handle.flush();os.fsync(handle.fileno())
         os.replace(name,path)
     finally:
         if os.path.exists(name):os.unlink(name)
@@ -97,6 +104,7 @@ def config(value):
     if not isinstance(ports,list) or not ports or len(ports)>32 or any(type(p)!=int or not 1<=p<=65535 for p in ports):raise ValueError('Invalid SSH ports')
     result['ports']=sorted(set(ports))
     if type(result.get('enabled'))!=bool:raise ValueError('Invalid enabled flag')
+    if result.get('update_schedule','') not in ('','hourly','daily','weekly'):raise ValueError('Invalid update schedule')
     trusted=result.get('trusted',[])
     if not isinstance(trusted,list) or len(trusted)>100:raise ValueError('At most 100 trusted CIDRs')
     result['trusted']=[str(safe_network(v,trusted=True)) for v in trusted]
@@ -116,7 +124,7 @@ def base_url(value):
 
 
 def download(url,limit=64*1024*1024):
-    request=urllib.request.Request(url,headers={'User-Agent':'Aegis-GeoIP/0.9.0 (+https://karanik.gr)'})
+    request=urllib.request.Request(url,headers={'User-Agent':'Aegis-GeoIP/0.9.1 (+https://karanik.gr)'})
     with urllib.request.urlopen(request,timeout=35) as response:
         target=urllib.parse.urlsplit(response.geturl());original=urllib.parse.urlsplit(url)
         if target.hostname!=original.hostname or target.scheme!=original.scheme:raise ValueError('Cross-host/protocol feed redirect refused')
@@ -248,8 +256,11 @@ def live_table():
         raise RuntimeError('Cannot inspect GeoIP nftables table: '+process.stderr[:500])
     data=json.loads(process.stdout)
     table=next((row['table'] for row in data.get('nftables',[]) if 'table' in row),{})
-    if table.get('comment')!=MARKER:raise ValueError('Unmanaged table with the same name; refusing to replace it')
-    return command(['nft','-s','list','table','inet',TABLE])
+    text=command(['nft','-s','list','table','inet',TABLE])
+    # Some nft versions omit table comments from JSON but retain them in text.
+    if table.get('comment')!=MARKER and not re.search(r'^\s*comment\s+"'+re.escape(MARKER)+r'"\s*;?\s*$',text,re.M):
+        raise ValueError('Unmanaged table with the same name; refusing to replace it')
+    return text
 
 
 def replace_table(text):
@@ -311,6 +322,12 @@ def run(op,token=''):
     if os.geteuid()!=0:raise RuntimeError('Root required')
     # Service start in restore invokes apply in another process; never hold its lock here.
     if op=='restore':restore(token);return
+    if op=='schedule-stop':stop_schedule();return
+    if op=='schedule-restore':restore_schedule(json.loads(token));return
+    if op=='update':
+        def terminate(signum,frame):raise RuntimeError('Scheduled update interrupted; retaining previous data')
+        signal.signal(signal.SIGTERM,terminate)
+        scheduled_update();return
     with runtime_lock():
         if op=='apply':apply_current()
         elif op=='check':
@@ -320,8 +337,69 @@ def run(op,token=''):
         else:raise ValueError('Unknown GeoIP runtime operation')
 
 
+def stop_schedule():
+    for unit in (UPDATE_TIMER,UPDATE_UNIT):
+        result=subprocess.run(['systemctl','stop',unit],capture_output=True,text=True,env={**os.environ,'LC_ALL':'C'})
+        if result.returncode and not any(message in result.stderr for message in ('not loaded','not found','does not exist')):
+            raise RuntimeError('Cannot stop '+unit+': '+result.stderr[:300])
+
+
+def restore_schedule(state):
+    command(['systemctl','daemon-reload'])
+    result=subprocess.run(['systemctl','enable' if state['enabled'] else 'disable',UPDATE_TIMER],capture_output=True,text=True)
+    if result.returncode and state['enabled']:raise RuntimeError('Cannot restore update timer enable state')
+    if state['active']:command(['systemctl','start',UPDATE_TIMER])
+
+
+def scheduled_update():
+    """Persistent reviewed schedule; last-good data survive failed publication.
+    Προγραμματισμένη ενημέρωση με snapshot και επαναφορά μόνο αν αποτύχει.
+    """
+    ROOT.parent.mkdir(parents=True,exist_ok=True)
+    with (ROOT.parent/'change.lock').open('a') as change:
+        fcntl.flock(change,fcntl.LOCK_EX)
+        with runtime_lock():
+            settings=config(read_json(CONFIG));old=read_json(CACHE)
+            if not settings.get('update_schedule'):raise ValueError('Scheduled updates are disabled')
+            for path in (ROOT.parent/'backups').glob('*/manifest.json'):
+                if read_json(path,{}).get('status') in ('armed','applying','awaiting-activation','activating','awaiting-confirmation'):
+                    raise ValueError('Another change awaits confirmation; keeping previous lists')
+            if settings['source']=='rir':
+                if not old or len(old.get('countries',{}))!=250:raise ValueError('Download the full country cache before scheduling updates')
+                new=collect_rir(old['countries'])
+            else:new=collect_feed(settings)
+            selected_networks(settings,new)
+            if old:
+                before=selected_networks(settings,old);after=selected_networks(settings,new)
+                for family in ('4','6'):
+                    count=lambda values:sum(ipaddress.ip_network(n).num_addresses for n in values)
+                    if count(before[family]) and count(after[family])<count(before[family])*0.5:
+                        raise ValueError('Address coverage fell by more than 50%; review a manual refresh. Previous lists retained.')
+            text,_=render(settings,new) if settings['enabled'] else ('',{})
+            if settings['enabled']:validate_table(text)
+            prior=live_table() if settings['enabled'] else None
+            stamp=datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
+            folder=ROOT/'scheduled-backups';snapshot=folder/(stamp+'.json')
+            previous_rules=RULES.read_text() if RULES.exists() else None
+            write_json(snapshot,{'cache':old,'rules':previous_rules,'table':prior})
+            changed=False
+            try:
+                if settings['enabled']:replace_table(text);changed=True
+                write_json(CACHE,new)
+                if settings['enabled']:write_text(RULES,text)
+            except BaseException:
+                if old is not None:write_json(CACHE,old)
+                else:CACHE.unlink(missing_ok=True)
+                if previous_rules is not None:write_text(RULES,previous_rules)
+                else:RULES.unlink(missing_ok=True)
+                if changed:replace_table(prior)
+                raise
+            for path in sorted(folder.glob('*.json'))[:-7]:path.unlink()
+            print('GeoIP lists updated: '+new['updated']+'; policy '+('active' if settings['enabled'] else 'disabled')+'; backup '+str(snapshot),flush=True)
+
+
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('op',choices=['apply','check','capture','restore','disable']);parser.add_argument('snapshot',nargs='?')
+    parser=argparse.ArgumentParser();parser.add_argument('op',choices=['apply','check','capture','restore','disable','update','schedule-stop','schedule-restore']);parser.add_argument('snapshot',nargs='?')
     args=parser.parse_args()
     run(args.op,args.snapshot or '')
 

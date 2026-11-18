@@ -18,6 +18,8 @@ GREEK = {
  'Install nftables command':'Εγκατάσταση εργαλείου nftables',
  'Disable GeoIP SSH policy':'Απενεργοποίηση πολιτικής GeoIP SSH',
  'Inspect runtime rules / counters':'Προβολή ενεργών κανόνων / μετρητών',
+ 'Enable GeoIP SSH policy':'Ενεργοποίηση πολιτικής GeoIP SSH',
+ 'Scheduled IP list updates':'Προγραμματισμένη ενημέρωση λιστών IP',
  'Allowed continents':'Επιτρεπόμενες ήπειροι',
  'Allowed countries':'Επιτρεπόμενες χώρες',
 
@@ -64,6 +66,7 @@ GREEK = {
 
 class UI:
     def __init__(self, language='en', theme=None, basic=False):
+        self.menu_path = ''
         self.language, self.theme, self.basic = language, themes.valid(theme or console.THEME), basic
         console.THEME=self.theme
         self.positions = {}
@@ -95,6 +98,8 @@ class UI:
         if self.language == 'el':
             title = GREEK.get(title, title)
             entries = [(key, GREEK.get(label, label), detail) for key, label, detail in entries]
+        title={'Fail2Ban Manager':'Security & Hardening | Fail2Ban Manager','Firewall Manager':'Security & Hardening | Firewall Manager'}.get(title,title)
+        self.menu_path=title
         if not entries: return None
         if self.basic or not sys.stdin.isatty() or os.environ.get('TERM', 'dumb') == 'dumb':
             return self.basic_choose(title, entries)
@@ -198,6 +203,8 @@ class UI:
         except ValueError: return '__refresh__'
 
     def view(self, title, content):
+        if ' | ' not in title and self.menu_path and title!=self.menu_path:
+            title=self.menu_path+' | '+title
         producer = content if callable(content) else lambda: content
         if self.basic or not sys.stdin.isatty() or os.environ.get('TERM', 'dumb') == 'dumb':
             while True:

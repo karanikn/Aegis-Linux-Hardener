@@ -155,6 +155,7 @@ def service(unit):
 
 
 def snapshot():
+    from . import geoip
     info = os_release()
     mem = memory()
     cpu = next((line.split(':', 1)[1].strip() for line in read('/proc/cpuinfo').splitlines()
@@ -172,6 +173,7 @@ def snapshot():
         'virtualization': virt or 'none/unknown', 'desktop_detected': desktop_present(),
         'addresses': network if net_code == 0 else 'ip command unavailable', 'default_route': route,
         'dns': '\n'.join(line for line in read('/etc/resolv.conf').splitlines() if line.startswith(('nameserver', 'search'))),
+        'geoip': geoip.access_summary(),
         'filesystems': filesystem_rows(), 'ssh': service('ssh'), 'fail2ban': service('fail2ban'),
         'firewall': ufw or 'not installed / root required', 'apparmor': service('apparmor'),
         'alerts': service('linux-telegram-alerts.timer'), 'reboot_required': Path('/var/run/reboot-required').exists(),
@@ -182,6 +184,8 @@ def audit():
     """Inventory findings, not a compliance certification / όχι πιστοποίηση ασφάλειας."""
     rows = []
     rows.append(('OS family', 'OK' if debian_based() else 'UNSUPPORTED', os_release().get('PRETTY_NAME', 'unknown')))
+    from . import geoip
+    rows.append(('GeoIP SSH', 'INFO', geoip.access_summary()))
     rows.append(('SSH service', service('ssh'), 'Review effective settings before changing authentication'))
     for package in ('fail2ban', 'ufw', 'apparmor', 'unattended-upgrades', 'lynis'):
         version = installed(package)

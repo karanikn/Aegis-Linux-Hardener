@@ -1,4 +1,4 @@
-# Application catalog — v0.9.0
+# Application catalog — v0.9.1
 
 56 default visible built-in entries. PNANA, psnet and watcher are excluded. Settings supports custom APT entries and hidden built-ins; Search filters the visible list live.
 

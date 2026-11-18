@@ -251,6 +251,8 @@ def dispatch(request, origin):
         subprocess.run(['lynis', 'audit', 'system', '--quick'])
         return
     elif kind == 'uninstall':
+        if geoip.settings().get('update_schedule'):
+            raise ValueError('Disable scheduled GeoIP updates before removing Aegis.')
         if geoip.settings()['enabled']:
             raise ValueError('Disable GeoIP SSH policy in Fail2Ban Manager before removing Aegis.')
         target = Path('/opt/aegis-linux-hardener')
@@ -333,7 +335,8 @@ def do(ui, request):
     try: call_root(request)
     except (console.Cancelled,KeyboardInterrupt):print('\nCancelled / interrupted; returned to menu. Check change history if an operation had started.')
     except Exception as error: print('\n' + str(error), file=sys.stderr)
-    pause()
+    if request.get('kind') not in ('geoip-browser','users-browser','shares-browser','dns-browser','hosts-browser','logs-browser','catalog-manager'):
+        pause()
 
 
 def prepare_dependencies(ui,request):
@@ -487,7 +490,7 @@ def hardening_menu(ui):
         elif choice=='firewall-manager':firewall_menu(ui)
         elif choice and choice.startswith('defense-'): defense_menu(ui,choice[8:])
         elif choice == 'lynis-controls': lynis_menu(ui)
-        elif choice == 'audit': ui.view('Security overview', lambda: table(['Check', 'State', 'Details'], system.audit()))
+        elif choice == 'audit': ui.view('Security & Hardening | Security overview', lambda: table(['Check', 'State', 'Details'], system.audit()))
         elif choice == 'lynis': do(ui, {'kind': 'lynis'})
         elif choice in ('root-password', 'keys-only', 'limits'):
             source = system.ssh_connection().split()
@@ -909,7 +912,7 @@ def main():
     parser.add_argument('--basic', action='store_true')
     parser.add_argument('--sort', choices=['ram', 'cpu'], default='ram')
     parser.add_argument('--language', choices=['en', 'el'])
-    parser.add_argument('--geoip-runtime',choices=['capture','restore','apply','check','disable'],help=argparse.SUPPRESS)
+    parser.add_argument('--geoip-runtime',choices=['capture','restore','apply','check','disable','update','schedule-stop','schedule-restore'],help=argparse.SUPPRESS)
     parser.add_argument('--geoip-snapshot',default='',help=argparse.SUPPRESS)
     parser.add_argument('--hostname-runtime', help=argparse.SUPPRESS)
     parser.add_argument('--build-netscanner', help=argparse.SUPPRESS)

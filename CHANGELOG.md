@@ -1,11 +1,11 @@
 # Release notes
 
-## 0.9.0 — 2026-11-18
+## 0.9.1 — 2026-11-18
 
 Aegis Linux Hardener provides a unified terminal environment for Debian-based system administration.
 
 - Live dashboard, process monitoring and categorized application catalog with live search.
-- Country/continent SSH access policy, bulk IPv4/IPv6 interval sets, validated Zone Feed refresh and timed rollback.
+- Country/continent SSH access policy, bulk IPv4/IPv6 interval sets, validated manual/scheduled refresh, permanent activation, scoped Undo and explicit enable/disable controls.
 - Reviewed security controls, SSH, Fail2Ban, UFW, AppArmor and selected Lynis recommendations.
 - Network, DNS, hosts and hostname configuration with protected activation and recovery.
 - Local users, groups, SSH public keys, permissions and POSIX ACL management.

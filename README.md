@@ -1,7 +1,7 @@
 # Aegis Linux Hardener
 
 <!-- aegis:badges -->
-![Version](https://img.shields.io/badge/version-0.9.0-0078D4)
+![Version](https://img.shields.io/badge/version-0.9.1-0078D4)
 ![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)
 ![Platform](https://img.shields.io/badge/platform-Debian%20%7C%20Ubuntu-E95420?logo=linux&logoColor=white)
 ![Interface](https://img.shields.io/badge/interface-TUI-5E81AC)
@@ -11,7 +11,7 @@
 
 > System info, security hardening and Telegram alerts in one tool.
 
-**Version 0.9.0** · Debian-based servers and desktops
+**Version 0.9.1** · Debian-based servers and desktops
 
 Aegis Linux Hardener is a terminal administration toolkit for Debian and Ubuntu. It brings system monitoring, selected security controls, network configuration, local account management, Samba shares and Telegram notifications into one interface.
 
@@ -37,17 +37,17 @@ Application availability depends on the distribution, configured repositories, a
 
 ### Install from a release ZIP
 
-Copy `aegis-linux-hardener-v0.9.0.zip` to the Linux machine. For example, from Windows PowerShell:
+Copy `aegis-linux-hardener-v0.9.1.zip` to the Linux machine. For example, from Windows PowerShell:
 
 ```powershell
-scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.9.0.zip" USER@SERVER_IP:~/
+scp "$env:USERPROFILE\Downloads\aegis-linux-hardener-v0.9.1.zip" USER@SERVER_IP:~/
 ```
 
 Replace `USER` and `SERVER_IP` with the account and address of the target machine. Then connect to Linux and run:
 
 ```bash
 cd ~
-unzip -o aegis-linux-hardener-v0.9.0.zip
+unzip -o aegis-linux-hardener-v0.9.1.zip
 cd ~/aegis-linux-hardener
 sudo bash ./install-aegis.sh --install
 ```
@@ -153,23 +153,24 @@ Supported missing prerequisites are offered at the selected action. Installation
 
 ## GeoIP SSH / Zone Feed
 
-Open **Security & Hardening → Fail2Ban Manager → GeoIP SSH / Zone Feed**. This module filters new connections to the host's selected SSH TCP ports by allocation country. It works alongside Fail2Ban; it does not add allowed countries to `ignoreip` or override bans and other firewall drops.
+Open **Security & Hardening → Fail2Ban Manager → GeoIP SSH**. The policy filters new connections to the host's selected SSH TCP ports by allocation country. It does not populate Fail2Ban `ignoreip`, bypass bans or open ports in another firewall.
 
-1. Select **Update IP lists now** to download and validate the country data. A download does not enable filtering.
-2. Open **Select countries / continents**. Use Space to tick entries, type to search, Page Up/Down to move, Enter to save, or Esc to cancel. Countries inherited from a selected continent remain checked; selections are combined as a union. Country names use English names and ISO codes.
-3. Review all detected SSH ports and the trusted management IP/VPN exceptions. The observed SSH client IP is proposed as an exception. An active SSH session cannot apply a policy that excludes its source address.
-4. Review and approve the plan. From SSH, open a **new connection** and confirm the change within **180 seconds** through Reports & History or the displayed confirmation command. An existing session alone does not verify new access.
-5. Use **Status / policy**, **Inspect runtime rules / counters** and **Service logs** to inspect the result. **Disable GeoIP SSH policy** removes only this module's table through a reviewed, recoverable action.
+1. **Update IP lists now:** download and validate country data. Downloading does not enable filtering.
+2. **Select countries / continents:** Space toggles checkboxes, typing filters, Page Up/Down moves, Enter saves and Esc cancels. Countries inherited from a continent stay checked. Selections form a union. While disabled, this action only saves configuration; an edit to an active policy applies the reviewed change immediately.
+3. Review every detected SSH port and any explicit **trusted management IP/VPN exceptions**. Exceptions also permit addresses outside the selected countries. No current-client exception is silently added. A policy excluding the observed SSH client is refused; configure an explicit management exception or apply from a local console.
+4. **Enable GeoIP SSH policy:** review and approve the saved policy. It remains enabled across application exit and reboot, until Disable or explicit Undo. **GeoIP actions have no 180-second timeout or second-session confirmation.** Automatic recovery runs only if an apply operation fails; backups remain available for manual Undo.
+5. **Scheduled IP list updates:** choose Off, Hourly, Daily or Weekly. Scheduling authorizes subsequent unattended downloads and, while enabled, atomic policy updates. systemd uses the host's timezone, a random delay up to five minutes and catch-up after missed runs. The default is Off. The timer refreshes only lists when the policy is disabled; it never enables filtering.
+6. Inspect **Status / policy**, **Inspect runtime rules / counters** and **Service logs**. Current countries and runtime verification are also shown in Dashboard and Security overview. **Disable GeoIP SSH policy** removes only this module's table; it leaves other firewall rules and the separately configured update schedule intact.
 
-**Two nftables interval sets and five fixed rules** handle IPv4 and IPv6. Thousands of CIDRs are elements in sets, not individual firewall rules. Duplicate and overlapping ranges are merged. The independent table is `inet aegis_geoip_ssh`; Aegis never flushes the whole ruleset. Existing established sessions and loopback traffic are retained. Other firewall policies still determine whether an allowed connection can reach SSH.
+**Two nftables interval sets and five fixed rules** hold IPv4/IPv6 prefixes. Thousands of CIDRs are set elements, not individual rules. Duplicate/overlapping ranges are merged. The independent table is `inet aegis_geoip_ssh`; Aegis never flushes the whole ruleset. Existing established sessions and loopback are retained. Other firewall policies still control whether an allowed source can reach SSH.
 
-The default collector uses the five RIR delegated-allocation sources, with RIPEstat and optional NirSoft enrichment for Greece. Alternatively, select **List source → Karanik Zone Feed server** and enter a trusted base URL, such as `https://FEED_SERVER`. Compatible feeds must provide `/feeds/gr.zone`, `/feeds/gr-v6.zone` and the corresponding paths for every selected country. Use HTTPS where possible; plain HTTP does not authenticate feed contents. No feed web server is installed on the protected machine, and an existing feed service is left untouched.
+The default collector downloads the five RIR delegated-allocation sources, RIPEstat Greece enrichment and optional NirSoft Greece enrichment. No private feed endpoint is built in. Optional compatible feeds can be configured under **List source**, using a trusted HTTPS base URL with country files such as `/feeds/gr.zone` and `/feeds/gr-v6.zone`. No feed web server is installed or modified on this machine.
 
-Updates are **manual and reviewed**. A failed or invalid download keeps the previous cache and policy. While filtering is enabled, a refresh uses a checked atomic table replacement and timed rollback; a drop of more than 50% in selected address coverage requires an additional confirmation. Empty territories can be included in a continent, but an entirely empty selection is refused. Missing IPv6 entries do not create an IPv6 SSH bypass. Changing feed sources requires disabling the policy first.
+Failed downloads or validation keep prior data. Scheduled updates reject an address-coverage reduction of more than 50% for manual review; manual updates ask for additional confirmation. Seven recent scheduled-update snapshots retain the previous cache, rules and owned table. Known empty territories can belong to continents, but an entirely empty policy is refused. Empty IPv6 lists do not leave an IPv6 SSH bypass. Changing sources requires disabling the policy first.
 
-A separate `aegis-geoip-ssh.service` reloads the cached policy at boot without requiring network downloads. It does not enable the distribution's `nftables.service`. Runtime snapshots and managed-file backups support scoped Undo. Counters reset when a table is replaced. Disable GeoIP before uninstalling Aegis; program removal is blocked while the policy is configured as enabled.
+`aegis-geoip-ssh.service` loads cached policy at boot without downloads. `aegis-geoip-update.timer` and `aegis-geoip-update.service` handle optional updates. The distribution's `nftables.service` is not enabled. Disable both filtering and its update schedule before uninstalling Aegis.
 
-Allocation country is an approximation, not proof of physical location. VPNs and proxies are evaluated by the source IP visible to the server. This policy covers host INPUT traffic; forwarded/container SSH needs separate controls. External firewall tools that flush the ruleset can remove the policy; check status and reapply after such changes. Newly added SSH ports require updating the selected ports. See [technical notes and verification](docs/geoip-ssh.md).
+Country allocation is approximate, not proof of physical location. VPNs/proxies are evaluated by the source IP visible to the server. This module covers host INPUT; forwarded/container SSH requires separate controls. External full-ruleset flushes can remove the policy; inspect status and reapply after such changes. New SSH ports require updating the selected ports. See [technical notes and verification](docs/geoip-ssh.md).
 
 ## Network configuration
 
@@ -265,7 +266,7 @@ The collector uses its own service/timer and persistent delivery queue. The bot 
 
 A change plan identifies its managed files, commands and relevant limits before execution. Confirm with Enter/y or cancel. Recovery data and action outcomes are available in **Reports & History**.
 
-Protected SSH/firewall/network changes arm a rollback timer, normally **180 seconds**. Keep the original session open, connect independently and run the exact confirmation command displayed by Aegis:
+Other protected SSH/firewall/network changes (excluding the persistent GeoIP policy) arm a rollback timer, normally **180 seconds**. Keep the original session open, connect independently and run the exact confirmation command displayed by Aegis:
 
 ```bash
 sudo aegis confirm CHANGE_ID
@@ -349,7 +350,7 @@ aegis --language en
 
 ## Validation and scope
 
-The release includes **280 automated tests**, terminal checks for dialogs, live search and delayed input after dashboard navigation, and installer integrity checks. An isolated netscanner source compilation is documented in [build verification](docs/netscanner-build-verification.md).
+The release includes **294 automated tests**, terminal checks for dialogs, live search and delayed input after dashboard navigation, and installer integrity checks. An isolated netscanner source compilation is documented in [build verification](docs/netscanner-build-verification.md).
 
 Tests for system mutations, package/service integrations and rollback behavior use mocked components; this is not a complete live Debian/Ubuntu compatibility matrix. Validate operational changes on a disposable VM with console access before production deployment.
 

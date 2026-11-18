@@ -42,6 +42,7 @@ def dashboard_rows(s, width=70):
     if hidden:add('{} runtime mounts omitted; Enter opens full dashboard'.format(hidden),'muted')
     add('SECURITY / SERVICES','accent')
     add('SSH: {} | Fail2Ban: {}'.format(s['ssh'],s['fail2ban']))
+    for line in textwrap.wrap(s.get('geoip','GeoIP SSH: unknown'),max(20,width)):add(line,'accent')
     add('AppArmor: {} | Telegram: {}'.format(s['apparmor'],s['alerts']))
     add('Firewall: '+s['firewall'].replace('\n',' | '))
     add('Reboot required: '+('YES' if s['reboot_required'] else 'no'),'warning' if s['reboot_required'] else 'good')
